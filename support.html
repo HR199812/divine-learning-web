@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Divine Learning</title>
+  <link rel="icon" href="icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --saffron: #FF6B00;
+      --dark: #060200;
+      --dark-card: #0E0400;
+      --dark-card2: #140600;
+      --border: rgba(255,107,0,0.10);
+      --border-hover: rgba(255,107,0,0.28);
+      --text: #FFF0E0;
+      --muted: rgba(255,240,224,0.50);
+      --muted2: rgba(255,240,224,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); line-height: 1.7; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 32px;
+      background: rgba(6,2,0,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-brand img { width: 28px; height: 28px; border-radius: 6px; }
+    .nav-brand span { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text); }
+    .nav-back {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; color: var(--muted); text-decoration: none;
+      padding: 7px 14px; border-radius: 100px; border: 1px solid var(--border);
+      transition: color .2s, border-color .2s;
+    }
+    .nav-back:hover { color: var(--saffron); border-color: rgba(255,107,0,0.3); }
+
+    /* HERO */
+    .support-hero {
+      padding: 72px 24px 56px; text-align: center;
+      background: linear-gradient(180deg, rgba(255,107,0,0.05) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--saffron);
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 52px); font-weight: 700;
+      color: var(--text); line-height: 1.15; margin-bottom: 14px;
+    }
+    .page-sub { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto; }
+
+    /* CONTACT CARDS */
+    .contact-strip {
+      max-width: 900px; margin: 0 auto; padding: 56px 24px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;
+    }
+    .contact-card {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 28px;
+      text-decoration: none; color: var(--text);
+      display: flex; flex-direction: column; gap: 12px;
+      transition: border-color .3s, transform .2s;
+    }
+    .contact-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--saffron); font-size: 18px;
+    }
+    .contact-card h3 { font-size: 16px; font-weight: 600; color: var(--text); }
+    .contact-card p { font-size: 13px; color: var(--muted); }
+    .contact-card span { font-size: 13px; color: var(--saffron); font-weight: 500; }
+
+    /* FAQ */
+    .faq-section { max-width: 720px; margin: 0 auto; padding: 0 24px 96px; }
+    .faq-header {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700; color: var(--text);
+      margin-bottom: 32px; display: flex; align-items: center; gap: 12px;
+    }
+    .faq-header i { color: var(--saffron); font-size: 22px; }
+
+    .faq-group { margin-bottom: 40px; }
+    .faq-group-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--saffron);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+
+    details {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: 14px; margin-bottom: 10px; overflow: hidden;
+      transition: border-color .2s;
+    }
+    details:hover { border-color: var(--border-hover); }
+    details[open] { border-color: rgba(255,107,0,0.2); }
+    summary {
+      padding: 18px 20px; font-size: 15px; font-weight: 500;
+      color: var(--text); cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      font-size: 11px; color: var(--saffron);
+      transition: transform .25s; flex-shrink: 0;
+    }
+    details[open] summary::after { transform: rotate(180deg); }
+    .faq-answer {
+      padding: 0 20px 18px; font-size: 14px; color: var(--muted); line-height: 1.75;
+    }
+    .faq-answer a { color: var(--saffron); text-decoration: none; }
+    .faq-answer a:hover { text-decoration: underline; }
+    .faq-answer ul { padding-left: 18px; margin-top: 8px; }
+    .faq-answer ul li { margin-bottom: 4px; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 24px;
+      text-align: center; font-size: 13px; color: var(--muted2);
+    }
+    footer a { color: var(--saffron); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="icon.png" alt="Divine Learning" />
+    <span>Divine Learning</span>
+  </a>
+  <a href="index.html" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="support-hero">
+  <div class="page-eyebrow"><i class="fa-solid fa-circle-question"></i> Help Centre</div>
+  <h1 class="page-title">How can we help?</h1>
+  <p class="page-sub">Find answers below or reach out directly — we're here to support your spiritual journey.</p>
+</div>
+
+<!-- CONTACT OPTIONS -->
+<div class="contact-strip">
+  <a href="mailto:support@divinelearning.app" class="contact-card">
+    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+    <h3>Email Support</h3>
+    <p>For account issues, data requests, or anything else.</p>
+    <span>support@divinelearning.app</span>
+  </a>
+  <div class="contact-card" style="cursor:default">
+    <div class="contact-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+    <h3>In-App Feedback</h3>
+    <p>Send feedback directly from the app.</p>
+    <span>Profile → Give Feedback</span>
+  </div>
+  <div class="contact-card" style="cursor:default">
+    <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+    <h3>Response Time</h3>
+    <p>We aim to reply to all emails within 2 business days.</p>
+    <span>Mon – Sat, 10 AM – 6 PM IST</span>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2 class="faq-header"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h2>
+
+  <!-- Account -->
+  <div class="faq-group">
+    <div class="faq-group-title"><i class="fa-solid fa-user"></i> Account & Login</div>
+
+    <details>
+      <summary>How do I create an account?</summary>
+      <div class="faq-answer">Open the app and tap "Continue with Phone". Enter your mobile number, receive an OTP, and verify. You can optionally add your name and preferred language during registration.</div>
+    </details>
+
+    <details>
+      <summary>I didn't receive the OTP. What should I do?</summary>
+      <div class="faq-answer">OTPs are currently delivered as a development feature and may be logged server-side. If you're facing issues, please contact us at <a href="mailto:support@divinelearning.app">support@divinelearning.app</a> and we'll help you access your account.</div>
+    </details>
+
+    <details>
+      <summary>Can I use the app without an account?</summary>
+      <div class="faq-answer">Yes. Tap "Continue without account" on the login screen. You can use all features in guest mode. Your chanting data will be stored locally on your device and will sync automatically if you sign in later.</div>
+    </details>
+
+    <details>
+      <summary>How do I delete my account?</summary>
+      <div class="faq-answer">Email us at <a href="mailto:support@divinelearning.app">support@divinelearning.app</a> with your registered phone number and we will permanently delete your account and all associated data within 7 business days.</div>
+    </details>
+
+    <details>
+      <summary>How do I change my language?</summary>
+      <div class="faq-answer">Go to Profile → Language Preferences and select from 10 available languages: English, Hindi, Bengali, Marathi, Gujarati, Odia, Tamil, Telugu, Kannada, Malayalam. The app UI, temple information, and Panchang will update immediately.</div>
+    </details>
+  </div>
+
+  <!-- Mala & Chanting -->
+  <div class="faq-group">
+    <div class="faq-group-title"><i class="fa-solid fa-circle-dot"></i> Mala Jaap & Chanting</div>
+
+    <details>
+      <summary>How does the Mala counter work?</summary>
+      <div class="faq-answer">Tap the rudraksha bead to count each repetition. Every 108 taps completes one Mala round. The counter tracks your total Jaap count, total Malas, and daily streaks. You can switch between different chants (Om, Ram, Krishna, Radha, etc.) using the chips below the bead.</div>
+    </details>
+
+    <details>
+      <summary>My chant count reset after closing the app. What happened?</summary>
+      <div class="faq-answer">Counts sync to the server every 5 seconds via a debounced background sync. If you closed the app very quickly after chanting, a few counts may not have synced. The count shown on app open is fetched from the server. If you're a guest user, data is in AsyncStorage on your device and should persist.</div>
+    </details>
+
+    <details>
+      <summary>How is the streak calculated?</summary>
+      <div class="faq-answer">A streak counts consecutive days on which you completed at least one chanting session. Chanting again on the same day does not reset or extend the streak — it updates the next day. If you miss a day, your streak resets to 1.</div>
+    </details>
+  </div>
+
+  <!-- Panchang & Astrology -->
+  <div class="faq-group">
+    <div class="faq-group-title"><i class="fa-solid fa-moon"></i> Panchang, Muhurat & Kundli</div>
+
+    <details>
+      <summary>The Panchang shows wrong data for my location.</summary>
+      <div class="faq-answer">Make sure location permission is granted in your device settings (Settings → Divine Learning → Location → While Using). The app falls back to New Delhi if permission is denied. Panchang data is fetched from the VedAstro API using your coordinates.</div>
+    </details>
+
+    <details>
+      <summary>How accurate is the Kundli / birth chart?</summary>
+      <div class="faq-answer">The Kundli is computed by the VedAstro public API using Vedic (sidereal) astrology. It is provided for informational purposes only. For important life decisions, please consult a qualified Jyotishi (astrologer).</div>
+    </details>
+
+    <details>
+      <summary>Why is Brahma Muhurta absent on some days?</summary>
+      <div class="faq-answer">Brahma Muhurta is computed as 96 minutes before sunrise. On days with very early sunrise or missing VedAstro data, it may not display. Abhijit Muhurat is absent on Wednesdays as per tradition.</div>
+    </details>
+  </div>
+
+  <!-- Temple Map -->
+  <div class="faq-group">
+    <div class="faq-group-title"><i class="fa-solid fa-map-location-dot"></i> Temple Map</div>
+
+    <details>
+      <summary>A temple's information seems incorrect or outdated.</summary>
+      <div class="faq-answer">Temple information — timings, directions, descriptions — can change. If you notice something incorrect, please email us at <a href="mailto:support@divinelearning.app">support@divinelearning.app</a> with the temple name and the correction. We review and update regularly.</div>
+    </details>
+
+    <details>
+      <summary>Can I suggest a temple to be added?</summary>
+      <div class="faq-answer">Yes! Open the Temple Map screen, tap the "+" button (suggest temple), and fill in the name, deity, and coordinates. Our team will review and add it if it meets our guidelines. You can also email us with temple details.</div>
+    </details>
+
+    <details>
+      <summary>Temple details are showing in English even though I selected Hindi.</summary>
+      <div class="faq-answer">Most temples are fully translated into all 9 Indian languages. For a small number of recently added temples, on-the-fly translation may take a few seconds on first load. The translated text is then cached for future visits.</div>
+    </details>
+  </div>
+
+  <!-- AI & Content -->
+  <div class="faq-group">
+    <div class="faq-group-title"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Guide & Content</div>
+
+    <details>
+      <summary>The AI gave an incorrect or inaccurate answer about Hindu scripture.</summary>
+      <div class="faq-answer">AI responses are generated by a language model and can contain inaccuracies. We include a disclaimer: <em>"AI is not a pandit or God. Responses may be inaccurate — always consult a pandit or spiritual person."</em> For authoritative answers, please refer to a qualified religious scholar.</div>
+    </details>
+
+    <details>
+      <summary>The AI chat is not responding / shows a connection error.</summary>
+      <div class="faq-answer">The AI feature requires an active internet connection and depends on our AI provider's availability. If you see an error, please check your connection and try again. If the issue persists for more than a few hours, contact us at <a href="mailto:support@divinelearning.app">support@divinelearning.app</a>.</div>
+    </details>
+  </div>
+
+  <!-- General -->
+  <div class="faq-group">
+    <div class="faq-group-title"><i class="fa-solid fa-circle-info"></i> General</div>
+
+    <details>
+      <summary>Is the app really free? Are there hidden costs?</summary>
+      <div class="faq-answer">Yes, completely free. No ads, no subscriptions, no in-app purchases, no premium tier. If you'd like to support the app's development, you can donate via the UPI option in Profile → Support This App. Every contribution is optional and deeply appreciated.</div>
+    </details>
+
+    <details>
+      <summary>The app is not working / keeps crashing.</summary>
+      <div class="faq-answer">Try these steps:
+        <ul>
+          <li>Force-close and reopen the app</li>
+          <li>Check for app updates in the App Store / Google Play</li>
+          <li>Restart your device</li>
+          <li>Uninstall and reinstall the app (your account data is stored on our servers and will sync back)</li>
+        </ul>
+        If the problem persists, email us with your device model, OS version, and a description of what happened.
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I enable / disable daily reminders?</summary>
+      <div class="faq-answer">Go to Profile → Daily Reminders and toggle it on or off. When enabled, you'll receive a morning Pooja reminder at 7 AM and an evening Mala Jaap reminder at 6 PM. You can also manage notification permissions in your device's system settings.</div>
+    </details>
+
+    <details>
+      <summary>I want to request a new feature.</summary>
+      <div class="faq-answer">We love hearing from users! Use Profile → Give Feedback or email <a href="mailto:support@divinelearning.app">support@divinelearning.app</a> with your suggestion. We read every message.</div>
+    </details>
+  </div>
+
+</div><!-- /faq-section -->
+
+<footer>
+  <p>© 2026 Divine Learning &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms & Conditions</a></p>
+</footer>
+
+</body>
+</html>
