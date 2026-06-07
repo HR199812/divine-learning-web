@@ -84,6 +84,27 @@
     .contact-card p { font-size: 13px; color: var(--muted); }
     .contact-card span { font-size: 13px; color: var(--saffron); font-weight: 500; }
 
+    /* COPY EMAIL BUTTON */
+    .copy-email-wrap { position: relative; display: inline-block; margin-top: 4px; }
+    .copy-email-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: none; border: 1px solid rgba(255,107,0,0.25);
+      border-radius: 100px; padding: 7px 14px;
+      color: var(--saffron); font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: border-color .2s, background .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .copy-email-btn:hover { border-color: var(--saffron); background: rgba(255,107,0,0.08); }
+    .copy-tooltip {
+      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      background: var(--saffron); color: #fff;
+      font-size: 12px; font-weight: 600; white-space: nowrap;
+      padding: 5px 12px; border-radius: 100px;
+      pointer-events: none; opacity: 0;
+      transition: opacity .15s;
+    }
+    .copy-tooltip.show { opacity: 1; }
+
     /* FAQ */
     .faq-section { max-width: 720px; margin: 0 auto; padding: 0 24px 96px; }
     .faq-header {
@@ -154,12 +175,17 @@
 
 <!-- CONTACT OPTIONS -->
 <div class="contact-strip">
-  <a href="mailto:support@divinelearning.app" class="contact-card">
+  <div class="contact-card" style="cursor:default">
     <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
     <h3>Email Support</h3>
     <p>For account issues, data requests, or anything else.</p>
-    <span>support@divinelearning.app</span>
-  </a>
+    <div class="copy-email-wrap">
+      <button class="copy-email-btn" onclick="copyEmail(this)">
+        <i class="fa-solid fa-copy"></i> admin@canvadb.com
+      </button>
+      <div class="copy-tooltip">Copied!</div>
+    </div>
+  </div>
   <div class="contact-card" style="cursor:default">
     <div class="contact-icon"><i class="fa-solid fa-mobile-screen"></i></div>
     <h3>In-App Feedback</h3>
@@ -322,5 +348,14 @@
   <p>© 2026 Divine Learning &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms & Conditions</a></p>
 </footer>
 
+<script>
+function copyEmail(btn) {
+  navigator.clipboard.writeText('admin@canvadb.com').then(function () {
+    var tooltip = btn.parentElement.querySelector('.copy-tooltip');
+    tooltip.classList.add('show');
+    setTimeout(function () { tooltip.classList.remove('show'); }, 2000);
+  });
+}
+</script>
 </body>
 </html>
