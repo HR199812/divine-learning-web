@@ -100,7 +100,7 @@ export default function HeroSection() {
           <i className="fa-solid fa-heart"></i>
           Free Forever &nbsp;·&nbsp; No Ads &nbsp;·&nbsp; No Paywalls
         </div>
-        <h1 className="hero-title">Divine<br /><em>Learning</em></h1>
+        <h1 className="hero-title"><em>Aradhana</em></h1>
         <p className="hero-sub">Your complete Hindu spiritual companion. Japa Mala, sacred texts, 195+ temples, and AI guidance — in 10 Indian languages.</p>
         <div className="hero-actions">
           <a href="#download" className="btn-primary">

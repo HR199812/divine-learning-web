@@ -34,11 +34,11 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-brand">
-        <img src="/icon.png" alt="Divine Learning" />
-        <span>Divine Learning</span>
+        <img src="/icon.png" alt="Aradhana" />
+        <span>Aradhana</span>
       </div>
       <div className="footer-copy">
-        © 2026 Divine Learning · Free for everyone, always.
+        © 2026 Aradhana · Free for everyone, always.
         <br />
         <span style={{ fontSize: '12px' }}>
           Made with devotion by{' '}

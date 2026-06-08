@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import LegalNav from '../components/LegalNav'
 
 export default function PrivacyPolicy() {
-  useEffect(() => { document.title = 'Privacy Policy — Divine Learning' }, [])
+  useEffect(() => { document.title = 'Privacy Policy — Aradhana' }, [])
 
   return (
     <>
@@ -16,11 +16,11 @@ export default function PrivacyPolicy() {
         <div className="prose">
 
           <div className="highlight-box">
-            <strong>Our commitment:</strong> Divine Learning does not sell your data, show ads, or share your personal information with third parties for marketing purposes. We collect only what is necessary to provide you with a spiritual experience.
+            <strong>Our commitment:</strong> Aradhana does not sell your data, show ads, or share your personal information with third parties for marketing purposes. We collect only what is necessary to provide you with a spiritual experience.
           </div>
 
           <h2><i className="fa-solid fa-info-circle"></i>1. Introduction</h2>
-          <p>Divine Learning ("we", "us", "our") is a free Hindu devotional application developed by Justanothersupremesoul. This Privacy Policy explains how we collect, use, and protect your information when you use our mobile application ("App") and website.</p>
+          <p>Aradhana ("we", "us", "our") is a free Hindu devotional application developed by Justanothersupremesoul. This Privacy Policy explains how we collect, use, and protect your information when you use our mobile application ("App") and website.</p>
           <p>By using the App, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use the App.</p>
 
           <h2><i className="fa-solid fa-database"></i>2. Information We Collect</h2>
@@ -109,7 +109,7 @@ export default function PrivacyPolicy() {
           <p>To exercise any of these rights, email us at <a href="mailto:admin@canvadb.com">admin@canvadb.com</a>. We will respond within 30 days.</p>
 
           <h2><i className="fa-solid fa-globe"></i>9. International Users</h2>
-          <p>Divine Learning is developed and operated from India. If you access the App from outside India, your information may be transferred to and processed in India. By using the App, you consent to this transfer.</p>
+          <p>Aradhana is developed and operated from India. If you access the App from outside India, your information may be transferred to and processed in India. By using the App, you consent to this transfer.</p>
 
           <h2><i className="fa-solid fa-pen-to-square"></i>10. Changes to This Policy</h2>
           <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by updating the "Last updated" date at the top of this page and, where appropriate, through an in-app notice. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
@@ -125,7 +125,7 @@ export default function PrivacyPolicy() {
       </div>
 
       <footer className="legal-footer">
-        <p>© 2026 Divine Learning &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/terms">Terms &amp; Conditions</Link> &nbsp;·&nbsp; <Link to="/support">Support</Link></p>
+        <p>© 2026 Aradhana &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/terms">Terms &amp; Conditions</Link> &nbsp;·&nbsp; <Link to="/support">Support</Link></p>
       </footer>
     </>
   )

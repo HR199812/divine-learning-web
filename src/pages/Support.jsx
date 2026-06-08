@@ -28,7 +28,7 @@ function CopyEmailCard() {
 }
 
 export default function Support() {
-  useEffect(() => { document.title = 'Support — Divine Learning' }, [])
+  useEffect(() => { document.title = 'Support — Aradhana' }, [])
 
   return (
     <>
@@ -103,7 +103,7 @@ export default function Support() {
           <div className="faq-group-title"><i className="fa-solid fa-moon"></i> Panchang, Muhurat & Kundli</div>
           <details>
             <summary>The Panchang shows wrong data for my location.</summary>
-            <div className="faq-answer">Make sure location permission is granted in your device settings (Settings → Divine Learning → Location → While Using). The app falls back to New Delhi if permission is denied. Panchang data is fetched from the VedAstro API using your coordinates.</div>
+            <div className="faq-answer">Make sure location permission is granted in your device settings (Settings → Aradhana → Location → While Using). The app falls back to New Delhi if permission is denied. Panchang data is fetched from the VedAstro API using your coordinates.</div>
           </details>
           <details>
             <summary>How accurate is the Kundli / birth chart?</summary>
@@ -174,7 +174,7 @@ export default function Support() {
       </div>
 
       <footer className="legal-footer">
-        <p>© 2026 Divine Learning &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/privacy-policy">Privacy Policy</Link> &nbsp;·&nbsp; <Link to="/terms">Terms &amp; Conditions</Link></p>
+        <p>© 2026 Aradhana &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/privacy-policy">Privacy Policy</Link> &nbsp;·&nbsp; <Link to="/terms">Terms &amp; Conditions</Link></p>
       </footer>
     </>
   )

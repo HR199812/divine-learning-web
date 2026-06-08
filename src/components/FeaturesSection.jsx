@@ -3,7 +3,7 @@ export default function FeaturesSection() {
     <section id="features" className="section">
       <div className="container">
         <div className="section-eyebrow"><i className="fa-solid fa-sparkles"></i> Features</div>
-        <h2 className="section-title">Everything for your<br /><em>Sadhana</em></h2>
+        <h2 className="section-title">Everything for your<br /><em>Aradhana</em></h2>
         <p className="section-sub">From the first bead to the final mantra — one app for your entire spiritual day.</p>
 
         <div className="bento">

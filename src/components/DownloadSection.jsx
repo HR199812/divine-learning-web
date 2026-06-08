@@ -6,7 +6,7 @@ export default function DownloadSection() {
         <div className="section-eyebrow" style={{ justifyContent: 'center', marginBottom: '18px' }}>
           <i className="fa-solid fa-om"></i> Begin Your Journey
         </div>
-        <h2 className="cta-title">Start your Sadhana<br /><em>today. Free.</em></h2>
+        <h2 className="cta-title">Start your Aradhana<br /><em>today. Free.</em></h2>
         <p className="cta-sub">No subscriptions. No ads. Built with devotion for every Hindu, everywhere.</p>
         <div className="store-buttons">
           <a href="https://apps.apple.com/app/id6744042760" className="store-btn">

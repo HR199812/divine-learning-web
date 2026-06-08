@@ -1,7 +1,7 @@
-# Divine Learning — Web (GitHub Pages)
+# Aradhana — Web (GitHub Pages)
 
 ## Project Overview
-Static landing page + legal docs for the **Divine Learning** app, hosted on GitHub Pages at `https://hr199812.github.io/divine-learning-web/`. Built as a portfolio project and App Store submission requirement.
+Static landing page + legal docs for the **Aradhana** app, hosted on GitHub Pages at `https://hr199812.github.io/divine-learning-web/`. Built as a portfolio project and App Store submission requirement.
 
 ## Tech Stack
 - **Pure HTML/CSS/JS** — no build step, no framework, no bundler

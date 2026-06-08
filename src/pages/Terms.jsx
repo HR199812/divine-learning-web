@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import LegalNav from '../components/LegalNav'
 
 export default function Terms() {
-  useEffect(() => { document.title = 'Terms & Conditions — Divine Learning' }, [])
+  useEffect(() => { document.title = 'Terms & Conditions — Aradhana' }, [])
 
   return (
     <>
@@ -16,14 +16,14 @@ export default function Terms() {
         <div className="prose">
 
           <div className="highlight-box">
-            <strong>Please read carefully.</strong> By downloading or using Divine Learning, you agree to be bound by these Terms. If you disagree with any part, please do not use the App.
+            <strong>Please read carefully.</strong> By downloading or using Aradhana, you agree to be bound by these Terms. If you disagree with any part, please do not use the App.
           </div>
 
           <h2><i className="fa-solid fa-handshake"></i>1. Acceptance of Terms</h2>
-          <p>These Terms and Conditions ("Terms") govern your use of the Divine Learning mobile application ("App") and associated website, operated by Justanothersupremesoul ("we", "us", "our"). By accessing or using the App, you confirm that you are at least 13 years of age and agree to these Terms in full.</p>
+          <p>These Terms and Conditions ("Terms") govern your use of the Aradhana mobile application ("App") and associated website, operated by Justanothersupremesoul ("we", "us", "our"). By accessing or using the App, you confirm that you are at least 13 years of age and agree to these Terms in full.</p>
 
           <h2><i className="fa-solid fa-mobile-screen"></i>2. Description of Service</h2>
-          <p>Divine Learning is a free Hindu devotional application that provides:</p>
+          <p>Aradhana is a free Hindu devotional application that provides:</p>
           <ul>
             <li>Japa Mala chanting counter with streak tracking</li>
             <li>Sacred text library (Aartis, Chalisas, Bhajans, Mantras, Kathas)</li>
@@ -59,7 +59,7 @@ export default function Terms() {
           </ul>
 
           <h2><i className="fa-solid fa-om"></i>5. Spiritual Content Disclaimer</h2>
-          <p>Divine Learning provides spiritual and devotional content for informational and educational purposes only.</p>
+          <p>Aradhana provides spiritual and devotional content for informational and educational purposes only.</p>
           <div className="highlight-box">
             <strong>Important:</strong> The content in this App — including sacred texts, temple information, festival dates, Panchang, Muhurat, and Kundli — is provided for general informational purposes. It does not constitute religious authority, priestly advice, or a substitute for consultation with a qualified pandit, astrologer, or spiritual guide.
           </div>
@@ -116,7 +116,7 @@ export default function Terms() {
       </div>
 
       <footer className="legal-footer">
-        <p>© 2026 Divine Learning &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/privacy-policy">Privacy Policy</Link> &nbsp;·&nbsp; <Link to="/support">Support</Link></p>
+        <p>© 2026 Aradhana &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/privacy-policy">Privacy Policy</Link> &nbsp;·&nbsp; <Link to="/support">Support</Link></p>
       </footer>
     </>
   )
