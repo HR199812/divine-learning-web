@@ -2,8 +2,8 @@ export default function Navbar() {
   return (
     <nav className="nav-home">
       <a href="#" className="nav-brand">
-        <img src="/icon.png" alt="Aradhana" />
-        Aradhana
+        <img src="/icon.png" alt="Aradhana Kit" />
+        Aradhana Kit
       </a>
       <ul className="nav-links">
         <li><a href="#features">Features</a></li>

@@ -4,8 +4,8 @@ export default function LegalNav() {
   return (
     <nav className="nav-legal">
       <Link to="/" className="nav-brand">
-        <img src="/icon.png" alt="Aradhana" />
-        <span>Aradhana</span>
+        <img src="/icon.png" alt="Aradhana Kit" />
+        <span>Aradhana Kit</span>
       </Link>
       <Link to="/" className="nav-back">
         <i className="fa-solid fa-arrow-left"></i> Back to Home

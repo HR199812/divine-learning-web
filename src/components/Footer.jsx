@@ -34,11 +34,11 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-brand">
-        <img src="/icon.png" alt="Aradhana" />
-        <span>Aradhana</span>
+        <img src="/icon.png" alt="Aradhana Kit" />
+        <span>Aradhana Kit</span>
       </div>
       <div className="footer-copy">
-        © 2026 Aradhana · Free for everyone, always.
+        © 2026 Aradhana Kit · Free for everyone, always.
         <br />
         <span style={{ fontSize: '12px' }}>
           Made with devotion by{' '}
