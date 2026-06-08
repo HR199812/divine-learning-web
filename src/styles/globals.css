@@ -298,7 +298,7 @@ body {
 }
 .lang-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .lang-scripts {
-  position: relative; height: 420px;
+  position: relative; height: 480px;
   display: flex; flex-direction: column; justify-content: center;
 }
 @keyframes langFloat {

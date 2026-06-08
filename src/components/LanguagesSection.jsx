@@ -18,9 +18,9 @@ const SCRIPTS = [
   { text: 'ગુજરાતી', style: { fontSize: '44px', top: '185px', right: '20px', color: 'rgba(255,240,224,0.6)',  '--dur': '4.9s', '--delay': '-0.7s', '--lift': '-9px'  } },
   { text: 'தமிழ்',   style: { fontSize: '48px', top: '250px', left: '0',     color: 'rgba(255,240,224,0.4)',  '--dur': '5.7s', '--delay': '-3.4s', '--lift': '-11px' } },
   { text: 'తెలుగు',  style: { fontSize: '40px', top: '305px', right: '10px', color: 'rgba(255,240,224,0.45)', '--dur': '4.4s', '--delay': '-1.1s', '--lift': '-7px'  } },
-  { text: 'ಕನ್ನಡ',   style: { fontSize: '42px', top: '350px', left: '30px',  color: 'rgba(255,240,224,0.3)',  '--dur': '6.3s', '--delay': '-4.0s', '--lift': '-10px' } },
+  { text: 'ಕನ್ನಡ',   style: { fontSize: '42px', top: '345px', left: '30px',  color: 'rgba(255,240,224,0.3)',  '--dur': '6.3s', '--delay': '-4.0s', '--lift': '-10px' } },
   { text: 'മലയാളം',  style: { fontSize: '44px', bottom: '20px', right: '0',  color: 'rgba(255,240,224,0.55)', '--dur': '5.0s', '--delay': '-2.2s', '--lift': '-9px'  } },
-  { text: 'ଓଡ଼ିଆ',   style: { fontSize: '36px', bottom: '5px',  left: '10px', color: 'rgba(255,107,0,0.45)',   '--dur': '4.7s', '--delay': '-0.4s', '--lift': '-8px'  } },
+  { text: 'ଓଡ଼ିଆ',   style: { fontSize: '36px', bottom: '5px',  left: '55px', color: 'rgba(255,107,0,0.45)',   '--dur': '4.7s', '--delay': '-0.4s', '--lift': '-8px'  } },
 ]
 
 export default function LanguagesSection() {

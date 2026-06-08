@@ -37,7 +37,21 @@ export default function Footer() {
         <img src="/icon.png" alt="Divine Learning" />
         <span>Divine Learning</span>
       </div>
-      <div className="footer-copy">© 2026 Divine Learning · Free for everyone, always.</div>
+      <div className="footer-copy">
+        © 2026 Divine Learning · Free for everyone, always.
+        <br />
+        <span style={{ fontSize: '12px' }}>
+          Made with devotion by{' '}
+          <a
+            href="https://www.linkedin.com/in/hritwik-agarwal-99a5a0102/"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: '#FF6B00', textDecoration: 'none', fontWeight: 500 }}
+          >
+            Hritwik Agarwal
+          </a>
+        </span>
+      </div>
       <div className="footer-links">
         <a href="#features"><i className="fa-solid fa-star"></i> Features</a>
         <a href="#download"><i className="fa-solid fa-download"></i> Download</a>
