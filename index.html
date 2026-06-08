@@ -408,21 +408,6 @@
     .footer-links { display: flex; gap: 20px; }
     .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s; }
     .footer-links a:hover { color: var(--saffron); }
-    .footer-contact-wrap { position: relative; }
-    .footer-contact-btn {
-      font-size: 13px; color: var(--muted); background: none; border: none;
-      display: flex; align-items: center; gap: 6px; cursor: pointer;
-      transition: color .2s; font-family: 'Inter', sans-serif; padding: 0;
-    }
-    .footer-contact-btn:hover { color: var(--saffron); }
-    .footer-copy-tooltip {
-      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-      background: var(--saffron); color: #fff;
-      font-size: 11px; font-weight: 600; white-space: nowrap;
-      padding: 4px 10px; border-radius: 100px;
-      pointer-events: none; opacity: 0; transition: opacity .15s;
-    }
-    .footer-copy-tooltip.show { opacity: 1; }
 
     /* ── SCREENSHOT GALLERY ─────────────────────────────────── */
     .gallery-section { padding: 100px 0; }
@@ -881,12 +866,7 @@
     <a href="support.html"><i class="fa-solid fa-circle-question"></i> Support</a>
     <a href="privacy-policy.html"><i class="fa-solid fa-shield-halved"></i> Privacy</a>
     <a href="terms.html"><i class="fa-solid fa-file-contract"></i> Terms</a>
-    <div class="footer-contact-wrap">
-      <button class="footer-contact-btn" onclick="copyFooterEmail(this)">
-        <i class="fa-solid fa-envelope"></i> Contact
-      </button>
-      <div class="footer-copy-tooltip">Email copied!</div>
-    </div>
+    <a href="mailto:admin@canvadb.com"><i class="fa-solid fa-envelope"></i> Contact</a>
   </div>
 </footer>
 
@@ -1027,14 +1007,6 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 
 document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObserver.observe(el));
-
-function copyFooterEmail(btn) {
-  navigator.clipboard.writeText('admin@canvadb.com').then(function () {
-    var tooltip = btn.parentElement.querySelector('.footer-copy-tooltip');
-    tooltip.classList.add('show');
-    setTimeout(function () { tooltip.classList.remove('show'); }, 2000);
-  });
-}
 
 </script>
 
