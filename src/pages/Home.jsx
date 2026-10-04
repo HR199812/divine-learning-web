@@ -6,6 +6,7 @@ import HeroSection from '../components/HeroSection'
 import StatsStrip from '../components/StatsStrip'
 import GallerySection from '../components/GallerySection'
 import FeaturesSection from '../components/FeaturesSection'
+import JyotishSection from '../components/JyotishSection'
 import TemplesSection from '../components/TemplesSection'
 import LanguagesSection from '../components/LanguagesSection'
 import ToolsSection from '../components/ToolsSection'
@@ -17,8 +18,13 @@ function useScrollReveal() {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return
         const el = entry.target
-        if (el.classList.contains('bento-item')) {
-          const siblings = [...el.closest('.bento').querySelectorAll('.bento-item')]
+        // `closest` is guarded: a `.bento-item` outside a `.bento` used to throw
+        // here, and a throw inside an IntersectionObserver callback aborts the
+        // whole batch — every later element stayed at its CSS `opacity: 0`, so
+        // one stray class turned the page below it black.
+        const bento = el.classList.contains('bento-item') ? el.closest('.bento') : null
+        if (bento) {
+          const siblings = [...bento.querySelectorAll('.bento-item')]
           anime({ targets: siblings, opacity: [0, 1], translateY: [30, 0], delay: anime.stagger(70), duration: 800, easing: 'easeOutCubic' })
           siblings.forEach(s => observer.unobserve(s))
         } else if (el.classList.contains('tool-item')) {
@@ -33,7 +39,7 @@ function useScrollReveal() {
     }, { threshold: 0.1 })
 
     document.querySelectorAll(
-      '.bento-item, .tool-item, .section-eyebrow, .section-title, .section-sub, .temples-big-num, .lang-layout'
+      '.bento-item, .jyotish-card, .tool-item, .section-eyebrow, .section-title, .section-sub, .temples-big-num, .lang-layout'
     ).forEach(el => observer.observe(el))
 
     return () => observer.disconnect()
@@ -50,6 +56,7 @@ export default function Home() {
       <StatsStrip />
       <GallerySection />
       <FeaturesSection />
+      <JyotishSection />
       <TemplesSection />
       <LanguagesSection />
       <ToolsSection />

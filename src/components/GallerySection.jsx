@@ -1,21 +1,21 @@
 // Layout: 4-col grid, 4 rows. Each item has explicit col/row placement.
 //
-//  Row 1: [Home ×2cols]        [Panchang]   [AI Guide ×2rows]
+//  Row 1: [Home ×2cols]        [Recitation] [AI Guide ×2rows]
 //  Row 2: [Home ×2cols]        [Mala Jaap]  [AI Guide cont. ]
-//  Row 3: [Library] [Chalisas×2rows] [Reader]  [Mood·Gita×2rows]
-//  Row 4: [Gita]   [Chalisas cont.] [Settings][Mood·Gita cont.]
+//  Row 3: [Library] [TempleMap×2rows] [Reader]  [Mood·Gita×2rows]
+//  Row 4: [Activity][TempleMap cont.]  [Jyotish] [Mood·Gita cont.]
 
 const SCREENS = [
-  { src: '/images/IMG_3963.PNG', label: 'Home',           col: '1 / 3', row: '1 / 3', phone: 200 },
-  { src: '/images/IMG_3972.PNG', label: 'Panchang',       col: '3',     row: '1',     phone: 126 },
-  { src: '/images/IMG_3948.PNG', label: 'AI Guide',       col: '4',     row: '1 / 3', phone: 162 },
-  { src: '/images/IMG_3969.PNG', label: 'Mala Jaap',      col: '3',     row: '2',     phone: 126 },
-  { src: '/images/IMG_3967.PNG', label: 'Sacred Library', col: '1',     row: '3',     phone: 126 },
-  { src: '/images/IMG_3974.PNG', label: 'Chalisas',       col: '2',     row: '3 / 5', phone: 162 },
-  { src: '/images/IMG_3976.PNG', label: 'Chalisa Reader', col: '3',     row: '3',     phone: 126 },
-  { src: '/images/IMG_3964.PNG', label: 'Mood · Gita',    col: '4',     row: '3 / 5', phone: 162 },
-  { src: '/images/IMG_3965.PNG', label: 'Daily Gita',     col: '1',     row: '4',     phone: 126 },
-  { src: '/images/IMG_3970.PNG', label: 'Settings',       col: '3',     row: '4',     phone: 126 },
+  { src: '/images/home-panchang.png',  label: 'Home · Panchang', col: '1 / 3', row: '1 / 3', phone: 200 },
+  { src: '/images/recitation.png',     label: 'Recitation',      col: '3',     row: '1',     phone: 126 },
+  { src: '/images/ai-guide.png',       label: 'AI Guide',        col: '4',     row: '1 / 3', phone: 162 },
+  { src: '/images/mala.png',           label: 'Mala Jaap',       col: '3',     row: '2',     phone: 126 },
+  { src: '/images/library.png',        label: 'Sacred Library',  col: '1',     row: '3',     phone: 126 },
+  { src: '/images/temple-map.png',     label: 'Temple Map',      col: '2',     row: '3 / 5', phone: 162 },
+  { src: '/images/chalisa-reader.png', label: 'Chalisa Reader',  col: '3',     row: '3',     phone: 126 },
+  { src: '/images/home-gita.png',      label: 'Mood · Gita',     col: '4',     row: '3 / 5', phone: 162 },
+  { src: '/images/activity.png',       label: 'Your Activity',   col: '1',     row: '4',     phone: 126 },
+  { src: '/images/tools.png',          label: 'Jyotish Tools',   col: '3',     row: '4',     phone: 126 },
 ]
 
 export default function GallerySection() {

@@ -74,9 +74,9 @@ export default function FeaturesSection() {
           </div>
 
           <div className="bento-item">
-            <div className="bento-icon"><i className="fa-solid fa-diagram-project"></i></div>
-            <div className="bento-label">Kundli & Guna Milan</div>
-            <div className="bento-desc">Vedic birth chart generation and 36-point Guna Milan compatibility — powered by VedAstro.</div>
+            <div className="bento-icon"><i className="fa-solid fa-star-of-david"></i></div>
+            <div className="bento-label">Jyotish</div>
+            <div className="bento-desc">Birth chart, running dasha, Guna Milan, daily muhurat and panchang — all from one birth moment. <a href="#jyotish">See all →</a></div>
           </div>
 
           <div className="bento-item bento-wide">
