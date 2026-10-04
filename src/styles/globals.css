@@ -84,9 +84,20 @@ body {
   position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
   z-index: 200;
   display: flex; align-items: center; gap: 0;
-  background: rgba(10,3,0,0.75);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(168,66,0,0.18);
+  /*
+   * Light glass, not a dark pill. The page shows through at 72%, so the nav
+   * reads as part of the surface rather than a slab laid over it — and the
+   * saturate() is what keeps the cream warm instead of going grey under blur.
+   *
+   * It needs BOTH a hairline and a shadow: --line alone is 1.22:1 and cannot
+   * define an edge, and a shadow alone leaves the pill bleeding into the page
+   * where the two values nearly match. Together they read as a floating object.
+   */
+  background: rgba(255,252,247,0.72);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(42,26,14,0.07);
+  box-shadow: 0 1px 2px rgba(42,26,14,0.04), 0 8px 28px rgba(42,26,14,0.09);
   border-radius: 100px;
   padding: 8px 8px 8px 16px;
   white-space: nowrap;
@@ -99,28 +110,29 @@ body {
 .nav-brand img { width: 28px; height: 28px; border-radius: 6px; }
 .nav-links { display: flex; gap: 4px; list-style: none; }
 .nav-links a {
-  text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500;
-  padding: 6px 14px; border-radius: 100px;
+  text-decoration: none; color: var(--muted); font-size: 13.5px; font-weight: 500;
+  padding: 7px 14px; border-radius: 100px;
   transition: color .2s, background .2s;
 }
-.nav-links a:hover { color: var(--text); background: rgba(168,66,0,0.1); }
+.nav-links a:hover { color: var(--saffron); background: rgba(168,66,0,0.07); }
 .nav-cta {
-  background: var(--saffron); color: #fff;
+  background: var(--saffron); color: var(--on-accent);
   padding: 9px 18px; border-radius: 100px;
   font-size: 13px; font-weight: 600; text-decoration: none;
   display: inline-flex; align-items: center; gap: 7px;
   margin-left: 12px;
   transition: background .2s, transform .15s;
 }
-.nav-cta:hover { background: #e55e00; transform: scale(1.03); }
+.nav-cta:hover { background: #8E3800; transform: scale(1.03); }
 
 /* ── STICKY NAV (legal pages) ───────────────────────────── */
 .nav-legal {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 32px;
-  background: rgba(6,2,0,0.92); backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  background: rgba(250,246,240,0.88); backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid var(--line);
 }
 .nav-legal .nav-brand span {
   font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text);
@@ -495,30 +507,40 @@ footer {
 }
 .screen-card:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(168,66,0,0.06); }
 .screen-card:hover::after { opacity: 1; }
-.screen-card:hover .phone-frame {
-  border-color: rgba(168,66,0,0.35);
-  box-shadow: 0 24px 56px rgba(42,26,14,0.14);
-}
-
+.screen-card:hover /*
+ * ─── NO PHONE CHROME ───
+ * These were drawn as handsets: a dark bezel, a notch island and a heavy drop
+ * shadow. Three reasons that had to go on a cream page.
+ *
+ * 1. **The screenshots are already phone-shaped.** A bezel around a picture of a
+ *    phone screen is the device drawn twice, and the second one is the fake.
+ * 2. **It was the only dark mass left.** Ten black rectangles on a warm page
+ *    fought the entire palette, and the bezels — not the content — were the
+ *    first thing the eye landed on in the gallery.
+ * 3. **It cost real estate.** 14px of padding plus a border, per tile, spent on
+ *    chrome rather than on the app.
+ *
+ * What remains is the screenshot with its own rounded corners, a hairline so it
+ * reads as a surface rather than a floating crop, and a soft warm lift. If this
+ * is ever reverted to frames, note that a cream bezel does not work either — it
+ * reads as a drawing of a phone.
+ */
 .phone-frame {
-  /* Stays dark on purpose — this is a handset, not page chrome. A cream bezel
-     reads as a drawing of a phone rather than a phone. */
-  background: #1C140C;
-  border-radius: 36px;
-  border: 1.5px solid rgba(42,26,14,0.18);
-  padding: 14px 9px;
-  box-shadow: 0 18px 40px rgba(42,26,14,0.18), inset 0 0 0 0.5px rgba(255,255,255,0.06);
-  position: relative; overflow: hidden;
-  transition: border-color .3s, box-shadow .3s;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--lift);
+  overflow: hidden;
+  position: relative;
   flex-shrink: 0;
+  transition: box-shadow .3s, transform .3s;
 }
-.phone-island {
-  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-  width: 44%; max-width: 52px; height: 15px;
-  background: #060100; border-radius: 10px; z-index: 2;
+.phone-frame:hover {
+  box-shadow: var(--lift-hover);
+  transform: translateY(-4px);
 }
 .phone-frame img {
-  width: 100%; border-radius: 24px; display: block; object-fit: cover;
+  width: 100%; border-radius: 21px; display: block; object-fit: cover;
 }
 
 .screen-label {

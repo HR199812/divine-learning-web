@@ -33,7 +33,6 @@ export default function GallerySection() {
             style={{ gridColumn: s.col, gridRow: s.row }}
           >
             <div className="phone-frame" style={{ width: s.phone }}>
-              <div className="phone-island"></div>
               <img src={s.src} alt={s.label} loading="lazy" />
             </div>
             <div className="screen-label">{s.label}</div>

@@ -2,14 +2,36 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import anime from 'animejs'
 
+/*
+ * The mandala — seven counter-rotating rings of points.
+ *
+ * ─── A LIGHT GROUND INVERTS THE SIZING PROBLEM ───
+ * These were authored for a black page, where a bright dot blooms and reads
+ * larger than it is. On cream the opposite happens: a dark dot on a light ground
+ * reads *smaller*, so the same geometry fades out.
+ *
+ * It was also literally sub-pixel. With `sizeAttenuation` on, rendered size is
+ * about `size * 144` at this camera distance, so the three outer rings came out
+ * at **1.15, 1.44 and 1.88px** — invisible before contrast even entered into it.
+ * Sizes now run 6.6px at the centre to 2.7px at the rim.
+ *
+ * ─── OPACITY CARRIES THE DEPTH NOW ───
+ * The old ramp was a flat 0.8 and let size alone suggest distance. With sizes
+ * compressed into a narrower band, recession has to come from somewhere else, so
+ * each ring fades outward instead.
+ *
+ * Colours are the app mark's own (`constants/padma.ts`): #A84200 is the
+ * Sandalwood accent, #8F6B43 the darkened chandan — both measured on this cream.
+ * The originals (#FF6B00 / #FFB340) are 2.4:1 and 1.6:1 here.
+ */
 const RING_DEFS = [
-  { r: 0.5,  n: 20,  color: 0xA84200, size: 0.035, speed:  0.008 },
-  { r: 1.0,  n: 32,  color: 0x8F6B43, size: 0.025, speed: -0.006 },
-  { r: 1.6,  n: 48,  color: 0xA84200, size: 0.020, speed:  0.004 },
-  { r: 2.2,  n: 64,  color: 0x8F6B43, size: 0.016, speed: -0.003 },
-  { r: 2.9,  n: 80,  color: 0xA84200, size: 0.013, speed:  0.002 },
-  { r: 3.6,  n: 96,  color: 0xB08A5E, size: 0.010, speed: -0.0015 },
-  { r: 4.4,  n: 108, color: 0xA84200, size: 0.008, speed:  0.001 },
+  { r: 0.5,  n: 20,  color: 0xA84200, size: 0.046, opacity: 0.85, speed:  0.008 },
+  { r: 1.0,  n: 32,  color: 0x8F6B43, size: 0.039, opacity: 0.78, speed: -0.006 },
+  { r: 1.6,  n: 48,  color: 0xA84200, size: 0.033, opacity: 0.70, speed:  0.004 },
+  { r: 2.2,  n: 64,  color: 0x8F6B43, size: 0.029, opacity: 0.62, speed: -0.003 },
+  { r: 2.9,  n: 80,  color: 0xA84200, size: 0.025, opacity: 0.52, speed:  0.002 },
+  { r: 3.6,  n: 96,  color: 0xB08A5E, size: 0.022, opacity: 0.44, speed: -0.0015 },
+  { r: 4.4,  n: 108, color: 0x8F6B43, size: 0.019, opacity: 0.34, speed:  0.001 },
 ]
 
 export default function HeroSection() {
@@ -40,7 +62,7 @@ export default function HeroSection() {
       }
       const geo = new THREE.BufferGeometry()
       geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-      const mat = new THREE.PointsMaterial({ color: def.color, size: def.size, transparent: true, opacity: 0.8 })
+      const mat = new THREE.PointsMaterial({ color: def.color, size: def.size, transparent: true, opacity: def.opacity })
       const pts = new THREE.Points(geo, mat)
       pts.userData.speed = def.speed
       scene.add(pts)

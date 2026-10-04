@@ -127,24 +127,65 @@ function page({ title, subtitle, description, canonical, appUrl }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
+  /*
+   * Same design system as the site — Sandalwood light, Playfair headings, warm
+   * ink shadows. This page is the first thing a share recipient sees of the
+   * product, so it has to look like the product rather than like a redirect.
+   *
+   * Tokens are inlined rather than imported: this is a serverless function with
+   * no stylesheet of its own, and a <link> to the SPA's hashed CSS would couple
+   * it to a build artefact whose name changes on every deploy.
+   */
+  :root{
+    --ground:#FAF6F0; --surface:#FFFFFF; --sunk:#F1E9DD;
+    --text:#2A1A0E; --muted:#6F5A47; --accent:#A84200; --line:#EADFD0;
+    --lift:0 1px 2px rgba(42,26,14,.04), 0 4px 14px rgba(42,26,14,.06);
+    --lift-hover:0 2px 4px rgba(42,26,14,.05), 0 10px 28px rgba(42,26,14,.10);
+  }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#FAF6F0;color:#2A1A0E;font-family:Inter,system-ui,sans-serif;
+  body{background:var(--ground);color:var(--text);
+       font-family:Inter,system-ui,sans-serif;line-height:1.7;
        min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-  .card{max-width:520px;width:100%;text-align:center}
-  .icon{width:84px;height:84px;border-radius:20px;margin:0 auto 26px;display:block;
-        box-shadow:0 4px 16px rgba(42,26,14,.10)}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-          color:#A84200;font-weight:600;margin-bottom:14px}
-  h1{font-family:'Playfair Display',Georgia,serif;font-size:34px;line-height:1.25;
-     font-weight:700;margin-bottom:10px}
-  .sub{font-size:16px;color:#6F5A47;margin-bottom:28px}
-  .tagline{font-size:15px;line-height:1.6;color:#6F5A47;margin-bottom:34px}
-  .actions{display:flex;flex-direction:column;gap:12px;align-items:center}
-  a.btn{display:block;width:100%;max-width:320px;padding:15px 22px;border-radius:14px;
-        text-decoration:none;font-weight:600;font-size:15px}
-  .primary{background:#A84200;color:#FFFFFF}
-  .ghost{border:1px solid #94815E;color:#2A1A0E}
-  @media(max-width:420px){h1{font-size:27px}}
+
+  /* A single lifted leaf, the same card idiom the site uses throughout. */
+  .card{max-width:480px;width:100%;text-align:center;background:var(--surface);
+        border:1px solid var(--line);border-radius:28px;box-shadow:var(--lift);
+        padding:44px 36px 38px}
+
+  .icon{width:76px;height:76px;border-radius:18px;margin:0 auto 24px;display:block;
+        box-shadow:0 4px 16px rgba(42,26,14,.12)}
+
+  /* Matches the site's .hero-badge — tinted pill, uppercase, tracked. */
+  .kicker{display:inline-block;background:rgba(168,66,0,.09);
+          border:1px solid rgba(168,66,0,.22);color:var(--accent);
+          font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+          padding:6px 15px;border-radius:100px;margin-bottom:20px}
+
+  h1{font-family:'Playfair Display',Georgia,serif;font-size:32px;line-height:1.25;
+     font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
+  .sub{font-size:13px;color:var(--muted);letter-spacing:.04em;margin-bottom:26px}
+
+  /* The ornament the share cards use, so the two read as one family. */
+  .rule{display:flex;align-items:center;gap:12px;margin:0 auto 24px;max-width:240px}
+  .rule i{flex:1;height:1px;background:var(--accent);opacity:.28}
+  .rule b{color:var(--accent);font-size:7px;line-height:1;opacity:.55}
+
+  .tagline{font-size:15px;line-height:1.65;color:var(--muted);margin-bottom:30px}
+
+  .actions{display:flex;flex-direction:column;gap:11px;align-items:center}
+  a.btn{display:flex;align-items:center;justify-content:center;gap:9px;
+        width:100%;max-width:300px;padding:15px 22px;border-radius:15px;
+        text-decoration:none;font-weight:600;font-size:15px;
+        transition:background .25s,border-color .25s,box-shadow .25s,transform .18s}
+  .primary{background:var(--accent);color:#FFFFFF;box-shadow:var(--lift)}
+  .primary:hover{background:#8E3800;box-shadow:var(--lift-hover);transform:translateY(-2px)}
+  .ghost{background:var(--surface);border:1px solid rgba(42,26,14,.14);color:var(--text)}
+  .ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  @media(max-width:460px){
+    .card{padding:34px 24px 30px;border-radius:24px}
+    h1{font-size:26px}
+  }
 </style>
 </head>
 <body>
@@ -153,6 +194,7 @@ function page({ title, subtitle, description, canonical, appUrl }) {
     <div class="kicker">${esc(subtitle)}</div>
     <h1>${esc(title)}</h1>
     <p class="sub">Shared from Aradhana Kit</p>
+    <div class="rule"><i></i><b>&#9670;</b><i></i></div>
     <p class="tagline">${esc(TAGLINE)}</p>
     <div class="actions">
       <a class="btn primary" href="${IOS_STORE}">Download on the App Store</a>
