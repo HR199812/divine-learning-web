@@ -507,7 +507,8 @@ footer {
 }
 .screen-card:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(168,66,0,0.06); }
 .screen-card:hover::after { opacity: 1; }
-.screen-card:hover /*
+
+/*
  * ─── NO PHONE CHROME ───
  * These were drawn as handsets: a dark bezel, a notch island and a heavy drop
  * shadow. Three reasons that had to go on a cream page.
@@ -731,7 +732,7 @@ details[open] summary::after { transform: rotate(180deg); }
 }
 
 .jyotish-card {
-  background: var(--dark-card, var(--surface));
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 20px;
   box-shadow: var(--lift);
@@ -758,7 +759,7 @@ details[open] summary::after { transform: rotate(180deg); }
 .jyotish-desc {
   font-size: 14.5px;
   line-height: 1.65;
-  color: var(--muted, var(--muted));
+  color: var(--muted);
   flex: 1;
 }
 
@@ -768,7 +769,7 @@ details[open] summary::after { transform: rotate(180deg); }
   margin-top: 30px;
   font-size: 13px;
   line-height: 1.7;
-  color: var(--muted, var(--muted));
+  color: var(--muted);
   text-align: center;
   max-width: 640px;
   margin-left: auto;
