@@ -41,7 +41,7 @@ export default function FeaturesSection() {
             <div className="bento-icon"><i className="fa-solid fa-map-location-dot"></i></div>
             <div className="bento-label">Temple Map</div>
             <div className="bento-desc">195+ sacred temples — Jyotirlingas, Shakti Peethas, Dhams — with history, directions, and timings in your language.</div>
-            <div className="bento-deco" style={{ fontSize: '56px', right: '24px', bottom: '20px', color: 'rgba(255,107,0,0.08)' }}>195+</div>
+            <div className="bento-deco" style={{ fontSize: '56px', right: '24px', bottom: '20px', color: 'rgba(168,66,0,0.10)' }}>195+</div>
           </div>
 
           <div className="bento-item">

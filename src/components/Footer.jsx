@@ -20,7 +20,7 @@ function ContactButton() {
       {copied && (
         <span style={{
           position: 'absolute', bottom: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)',
-          background: '#FF6B00', color: '#fff', fontSize: '11px', fontWeight: 600,
+          background: 'var(--saffron)', color: 'var(--on-accent)', fontSize: '11px', fontWeight: 600,
           whiteSpace: 'nowrap', padding: '4px 10px', borderRadius: '100px', pointerEvents: 'none',
         }}>
           Email copied!
@@ -46,7 +46,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/hritwik-agarwal-99a5a0102/"
             target="_blank"
             rel="noreferrer"
-            style={{ color: '#FF6B00', textDecoration: 'none', fontWeight: 500 }}
+            style={{ color: 'var(--saffron)', textDecoration: 'none', fontWeight: 500 }}
           >
             Hritwik Agarwal
           </a>

@@ -1,29 +1,83 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/*
+ * Sandalwood light — the app's own palette, lifted token for token from
+ * `constants/theme.ts`. There is no dark mode: a devotional page is a lit page,
+ * and the site and the app should not disagree about what the product looks
+ * like. Every value below is one the app has already measured.
+ *
+ * ─── THE VARIABLE NAMES ARE DELIBERATELY UNCHANGED ───
+ * `--dark`, `--dark-card`, `--saffron` are now light, cream and the Sandalwood
+ * accent respectively. Renaming them would have meant touching several hundred
+ * rules for no visual gain and every chance of missing one; the names are a
+ * historical accident, the values are the design. New rules should prefer the
+ * role names added underneath.
+ *
+ * ─── var(--saffron) IS GONE ───
+ * The old saffron predates the app's Sandalwood migration and appears nowhere in
+ * the product any more. On cream it is also unusable: it measures 2.4:1, so
+ * every link and label set in it would have failed. The accent is #A84200.
+ *
+ * Measured on this ground (#FAF6F0): text 15.57:1, muted 6.04:1, accent 5.66:1,
+ * white-on-accent 6.10:1. On a white card: 16.77 / 6.50 / 6.10.
+ */
 :root {
-  --saffron: #FF6B00;
-  --gold: #FFB340;
-  --dark: #060200;
-  --dark-card: #0E0400;
-  --dark-card-2: #140600;
-  --border: rgba(255,107,0,0.10);
-  --border-hover: rgba(255,107,0,0.30);
-  --text: #FFF0E0;
-  --muted: rgba(255,240,224,0.45);
-  --muted2: rgba(255,240,224,0.22);
+  /* Roles — prefer these. */
+  --ground:  #FAF6F0;   /* behind everything */
+  --surface: #FFFFFF;   /* a card lifted off the ground */
+  --sunk:    #F1E9DD;   /* a well pressed into a surface */
+  --line:    #EADFD0;   /* hairline separation; 1.22:1, decorative only */
+  --on-accent: #FFFFFF;
+  --success: #1B7F3B;
+
+  /*
+   * `edge` is for a border that must be SEEN rather than implied — 3:1 per WCAG
+   * 1.4.11. The app's #A2906F measures 3.11:1 on white but only 2.89:1 on the
+   * cream ground, so the web takes a darker value that clears both.
+   */
+  --edge: #94815E;
+
+  /* Legacy names, kept so existing rules resolve. */
+  --saffron: #A84200;
+  --gold: #8A5A00;      /* the old #FFB340 is 1.6:1 on cream — unreadable */
+  --dark: var(--ground);
+  --dark-card: var(--surface);
+  --dark-card-2: var(--sunk);
+  --border: #EADFD0;
+  --border-hover: rgba(168,66,0,0.34);
+  --text: #2A1A0E;
+  --muted: #6F5A47;
+  /*
+   * The third text tier, and it cannot go much lighter. On the dark page this
+   * was rgba(255,240,224,0.22) — near-invisible, and decorative by intent. It
+   * carries real text though (footer copy, page meta, section labels), so on
+   * cream it answers to 4.5:1: #8A7560 measured 4.07 on ground and 3.64 on sunk
+   * and had to be darkened. The step below `--muted` is therefore small — that
+   * is the cost of a light ground, not an oversight.
+   */
+  --muted2: #766350;
+
+  /*
+   * Elevation, warm. On the old dark ground a card was defined by a saffron
+   * border glow; on cream that reads cheap and dirty. Light wants a real shadow
+   * — and a NEUTRAL grey one goes blue against a warm ground, so this borrows
+   * the ink colour, exactly as the app's `Lift` token does.
+   */
+  --lift:       0 1px 2px rgba(42,26,14,0.04), 0 4px 14px rgba(42,26,14,0.06);
+  --lift-hover: 0 2px 4px rgba(42,26,14,0.05), 0 10px 28px rgba(42,26,14,0.10);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--dark);
+  background: var(--ground);
   color: var(--text);
   overflow-x: hidden;
   line-height: 1.7;
 }
 
-::selection { background: rgba(255,107,0,0.3); }
+::selection { background: rgba(168,66,0,0.3); }
 
 /* ── FLOATING NAV (home) ────────────────────────────────── */
 .nav-home {
@@ -32,7 +86,7 @@ body {
   display: flex; align-items: center; gap: 0;
   background: rgba(10,3,0,0.75);
   backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,107,0,0.18);
+  border: 1px solid rgba(168,66,0,0.18);
   border-radius: 100px;
   padding: 8px 8px 8px 16px;
   white-space: nowrap;
@@ -49,7 +103,7 @@ body {
   padding: 6px 14px; border-radius: 100px;
   transition: color .2s, background .2s;
 }
-.nav-links a:hover { color: var(--text); background: rgba(255,107,0,0.1); }
+.nav-links a:hover { color: var(--text); background: rgba(168,66,0,0.1); }
 .nav-cta {
   background: var(--saffron); color: #fff;
   padding: 9px 18px; border-radius: 100px;
@@ -77,7 +131,7 @@ body {
   padding: 7px 14px; border-radius: 100px; border: 1px solid var(--border);
   transition: color .2s, border-color .2s;
 }
-.nav-back:hover { color: var(--saffron); border-color: rgba(255,107,0,0.3); }
+.nav-back:hover { color: var(--saffron); border-color: rgba(168,66,0,0.3); }
 
 /* ── HERO ───────────────────────────────────────────────── */
 .hero {
@@ -99,7 +153,7 @@ body {
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.25);
+  background: rgba(168,66,0,0.1); border: 1px solid rgba(168,66,0,0.25);
   color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: 1px;
   text-transform: uppercase; padding: 7px 18px; border-radius: 100px;
   margin-bottom: 32px; opacity: 0;
@@ -126,10 +180,10 @@ body {
   padding: 15px 30px; border-radius: 100px;
   font-size: 15px; font-weight: 600; text-decoration: none;
   display: inline-flex; align-items: center; gap: 9px;
-  box-shadow: 0 0 40px rgba(255,107,0,0.4);
+  box-shadow: 0 0 40px rgba(168,66,0,0.4);
   transition: transform .2s, box-shadow .2s;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(255,107,0,0.6); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(168,66,0,0.6); }
 .btn-ghost {
   background: transparent; color: var(--muted);
   padding: 15px 30px; border-radius: 100px;
@@ -157,7 +211,7 @@ body {
   border-bottom: 1px solid var(--border);
   padding: 0 40px;
   display: flex; justify-content: center;
-  background: rgba(255,107,0,0.03);
+  background: rgba(168,66,0,0.03);
 }
 .stats-inner {
   max-width: 900px; width: 100%;
@@ -209,21 +263,22 @@ body {
   position: relative; overflow: hidden;
   transition: border-color .35s, box-shadow .35s;
   opacity: 0; transform: translateY(30px);
+  box-shadow: var(--lift);
 }
 .bento-item::after {
   content: '';
   position: absolute; inset: 0; border-radius: 22px;
-  background: radial-gradient(circle at 30% 20%, rgba(255,107,0,0.07) 0%, transparent 60%);
+  background: radial-gradient(circle at 30% 20%, rgba(168,66,0,0.07) 0%, transparent 60%);
   opacity: 0; transition: opacity .35s;
   pointer-events: none;
 }
-.bento-item:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(255,107,0,0.06); }
+.bento-item:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(168,66,0,0.06); }
 .bento-item:hover::after { opacity: 1; }
 .bento-wide { grid-column: span 2; }
 
 .bento-icon {
   width: 46px; height: 46px; border-radius: 13px;
-  background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.15);
+  background: rgba(168,66,0,0.1); border: 1px solid rgba(168,66,0,0.15);
   display: flex; align-items: center; justify-content: center;
   color: var(--saffron); font-size: 19px; margin-bottom: 22px;
 }
@@ -238,14 +293,14 @@ body {
   position: absolute; right: 32px; bottom: 24px;
   font-family: 'Playfair Display', serif;
   font-size: 80px; font-weight: 900; line-height: 1;
-  color: rgba(255,107,0,0.06); pointer-events: none;
+  color: rgba(168,66,0,0.06); pointer-events: none;
   user-select: none;
 }
 .bento-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
 .bento-tag {
   font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
-  color: var(--saffron); background: rgba(255,107,0,0.1);
-  border: 1px solid rgba(255,107,0,0.15);
+  color: var(--saffron); background: rgba(168,66,0,0.1);
+  border: 1px solid rgba(168,66,0,0.15);
   padding: 4px 10px; border-radius: 100px;
 }
 
@@ -253,7 +308,7 @@ body {
   position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
   width: 180px; height: 180px; pointer-events: none;
 }
-.mala-ring circle { fill: none; stroke: rgba(255,107,0,0.12); stroke-width: 1.5; stroke-dasharray: 3 6; }
+.mala-ring circle { fill: none; stroke: rgba(168,66,0,0.12); stroke-width: 1.5; stroke-dasharray: 3 6; }
 
 /* ── TEMPLES MARQUEE ────────────────────────────────────── */
 .temples-section { padding: 100px 0; overflow: hidden; }
@@ -314,7 +369,7 @@ body {
   animation: langFloat var(--dur, 4s) var(--delay, 0s) ease-in-out infinite;
   will-change: transform;
 }
-.lang-script-item:hover { color: var(--saffron); text-shadow: 0 0 40px rgba(255,107,0,0.4); }
+.lang-script-item:hover { color: var(--saffron); text-shadow: 0 0 40px rgba(168,66,0,0.4); }
 
 .lang-list { display: flex; flex-direction: column; gap: 10px; margin-top: 36px; }
 .lang-row {
@@ -324,7 +379,7 @@ body {
   transition: background .2s, border-color .2s;
   cursor: default;
 }
-.lang-row:hover { background: rgba(255,107,0,0.05); border-color: var(--border); }
+.lang-row:hover { background: rgba(168,66,0,0.05); border-color: var(--border); }
 .lang-row-icon { color: var(--saffron); font-size: 13px; width: 16px; text-align: center; }
 .lang-row-name { font-size: 15px; color: var(--text); font-weight: 500; }
 .lang-row-native { font-size: 13px; color: var(--muted); margin-left: auto; }
@@ -340,11 +395,12 @@ body {
   border: 1px solid var(--border); border-radius: 20px;
   padding: 28px; display: flex; gap: 18px; align-items: flex-start;
   transition: border-color .3s; opacity: 0; transform: translateY(20px);
+  box-shadow: var(--lift);
 }
 .tool-item:hover { border-color: var(--border-hover); }
 .tool-icon {
   width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
-  background: rgba(255,107,0,0.08); border: 1px solid rgba(255,107,0,0.12);
+  background: rgba(168,66,0,0.08); border: 1px solid rgba(168,66,0,0.12);
   display: flex; align-items: center; justify-content: center;
   color: var(--saffron); font-size: 17px;
 }
@@ -354,7 +410,7 @@ body {
 /* ── DOWNLOAD CTA ───────────────────────────────────────── */
 .cta-section {
   padding: 120px 24px;
-  background: linear-gradient(160deg, #1C0800 0%, #0A0300 50%, #1A0600 100%);
+  background: linear-gradient(160deg, #F6EADB 0%, var(--sunk) 52%, #EFE2CF 100%);
   border-top: 1px solid var(--border);
   text-align: center; position: relative; overflow: hidden;
 }
@@ -362,12 +418,12 @@ body {
   content: 'ॐ';
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   font-family: serif; font-size: 500px; line-height: 1;
-  color: rgba(255,107,0,0.03); pointer-events: none; user-select: none;
+  color: rgba(168,66,0,0.03); pointer-events: none; user-select: none;
 }
 .cta-glow {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   width: 600px; height: 300px;
-  background: radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(168,66,0,0.12) 0%, transparent 70%);
   pointer-events: none;
 }
 .cta-content { position: relative; z-index: 1; }
@@ -381,13 +437,13 @@ body {
 .store-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .store-btn {
   display: inline-flex; align-items: center; gap: 14px;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(42,26,14,0.05); border: 1px solid rgba(42,26,14,0.10);
   backdrop-filter: blur(12px);
   padding: 14px 26px; border-radius: 16px; text-decoration: none;
   transition: background .3s, border-color .3s, transform .2s;
   min-width: 190px;
 }
-.store-btn:hover { background: rgba(255,107,0,0.1); border-color: rgba(255,107,0,0.3); transform: translateY(-2px); }
+.store-btn:hover { background: rgba(168,66,0,0.1); border-color: rgba(168,66,0,0.3); transform: translateY(-2px); }
 .store-btn i { font-size: 28px; color: var(--text); }
 .store-btn .store-text { text-align: left; }
 .store-btn .store-text span { display: block; font-size: 11px; color: var(--muted); }
@@ -434,22 +490,24 @@ footer {
 .screen-card::after {
   content: '';
   position: absolute; inset: 0; border-radius: 22px;
-  background: radial-gradient(circle at 50% 85%, rgba(255,107,0,0.07) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 85%, rgba(168,66,0,0.07) 0%, transparent 60%);
   opacity: 0; transition: opacity .35s; pointer-events: none;
 }
-.screen-card:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(255,107,0,0.06); }
+.screen-card:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(168,66,0,0.06); }
 .screen-card:hover::after { opacity: 1; }
 .screen-card:hover .phone-frame {
-  border-color: rgba(255,107,0,0.35);
-  box-shadow: 0 28px 64px rgba(0,0,0,0.7), 0 0 28px rgba(255,107,0,0.08);
+  border-color: rgba(168,66,0,0.35);
+  box-shadow: 0 24px 56px rgba(42,26,14,0.14);
 }
 
 .phone-frame {
-  background: #0C0400;
+  /* Stays dark on purpose — this is a handset, not page chrome. A cream bezel
+     reads as a drawing of a phone rather than a phone. */
+  background: #1C140C;
   border-radius: 36px;
-  border: 1.5px solid rgba(255,107,0,0.15);
+  border: 1.5px solid rgba(42,26,14,0.18);
   padding: 14px 9px;
-  box-shadow: 0 20px 48px rgba(0,0,0,0.55), inset 0 0 0 0.5px rgba(255,255,255,0.04);
+  box-shadow: 0 18px 40px rgba(42,26,14,0.18), inset 0 0 0 0.5px rgba(255,255,255,0.06);
   position: relative; overflow: hidden;
   transition: border-color .3s, box-shadow .3s;
   flex-shrink: 0;
@@ -519,7 +577,7 @@ footer {
 /* ── SUPPORT PAGE ─────────────────────────────────────────── */
 .support-hero {
   padding: 72px 24px 56px; text-align: center;
-  background: linear-gradient(180deg, rgba(255,107,0,0.05) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(168,66,0,0.05) 0%, transparent 100%);
   border-bottom: 1px solid var(--border);
 }
 
@@ -537,7 +595,7 @@ footer {
 .contact-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
 .contact-icon {
   width: 44px; height: 44px; border-radius: 12px;
-  background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.15);
+  background: rgba(168,66,0,0.1); border: 1px solid rgba(168,66,0,0.15);
   display: flex; align-items: center; justify-content: center;
   color: var(--saffron); font-size: 18px;
 }
@@ -548,13 +606,13 @@ footer {
 .copy-email-wrap { position: relative; display: inline-block; margin-top: 4px; }
 .copy-email-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  background: none; border: 1px solid rgba(255,107,0,0.25);
+  background: none; border: 1px solid rgba(168,66,0,0.25);
   border-radius: 100px; padding: 7px 14px;
   color: var(--saffron); font-size: 13px; font-weight: 500;
   cursor: pointer; transition: border-color .2s, background .2s;
   font-family: 'Inter', sans-serif;
 }
-.copy-email-btn:hover { border-color: var(--saffron); background: rgba(255,107,0,0.08); }
+.copy-email-btn:hover { border-color: var(--saffron); background: rgba(168,66,0,0.08); }
 .copy-tooltip {
   position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
   background: var(--saffron); color: #fff;
@@ -586,7 +644,7 @@ details {
   transition: border-color .2s;
 }
 details:hover { border-color: var(--border-hover); }
-details[open] { border-color: rgba(255,107,0,0.2); }
+details[open] { border-color: rgba(168,66,0,0.2); }
 summary {
   padding: 18px 20px; font-size: 15px; font-weight: 500;
   color: var(--text); cursor: pointer; list-style: none;
@@ -651,9 +709,10 @@ details[open] summary::after { transform: rotate(180deg); }
 }
 
 .jyotish-card {
-  background: var(--dark-card, #0E0400);
-  border: 1px solid var(--border, rgba(255, 107, 0, 0.10));
+  background: var(--dark-card, var(--surface));
+  border: 1px solid var(--line);
   border-radius: 20px;
+  box-shadow: var(--lift);
   padding: 26px 24px;
   display: flex;
   flex-direction: column;
@@ -662,21 +721,22 @@ details[open] summary::after { transform: rotate(180deg); }
   transition: border-color .25s ease, transform .25s ease;
 }
 .jyotish-card:hover {
-  border-color: rgba(255, 107, 0, 0.30);
+  border-color: var(--border-hover);
   transform: translateY(-3px);
+  box-shadow: var(--lift-hover);
 }
 
 .jyotish-title {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 21px;
   font-weight: 700;
-  color: var(--text, #FFF0E0);
+  color: var(--text);
 }
 
 .jyotish-desc {
   font-size: 14.5px;
   line-height: 1.65;
-  color: var(--muted, rgba(255, 240, 224, 0.50));
+  color: var(--muted, var(--muted));
   flex: 1;
 }
 
@@ -686,13 +746,13 @@ details[open] summary::after { transform: rotate(180deg); }
   margin-top: 30px;
   font-size: 13px;
   line-height: 1.7;
-  color: var(--muted, rgba(255, 240, 224, 0.50));
+  color: var(--muted, var(--muted));
   text-align: center;
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
 }
-.jyotish-note i { color: var(--saffron, #FF6B00); }
+.jyotish-note i { color: var(--saffron); }
 
 @media (max-width: 560px) {
   .jyotish-grid { grid-template-columns: 1fr; }

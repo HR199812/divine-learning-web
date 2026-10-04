@@ -3,13 +3,13 @@ import * as THREE from 'three'
 import anime from 'animejs'
 
 const RING_DEFS = [
-  { r: 0.5,  n: 20,  color: 0xFF6B00, size: 0.035, speed:  0.008 },
-  { r: 1.0,  n: 32,  color: 0xFFB340, size: 0.025, speed: -0.006 },
-  { r: 1.6,  n: 48,  color: 0xFF6B00, size: 0.020, speed:  0.004 },
-  { r: 2.2,  n: 64,  color: 0xFFB340, size: 0.016, speed: -0.003 },
-  { r: 2.9,  n: 80,  color: 0xFF6B00, size: 0.013, speed:  0.002 },
-  { r: 3.6,  n: 96,  color: 0xFFD080, size: 0.010, speed: -0.0015 },
-  { r: 4.4,  n: 108, color: 0xFF6B00, size: 0.008, speed:  0.001 },
+  { r: 0.5,  n: 20,  color: 0xA84200, size: 0.035, speed:  0.008 },
+  { r: 1.0,  n: 32,  color: 0x8F6B43, size: 0.025, speed: -0.006 },
+  { r: 1.6,  n: 48,  color: 0xA84200, size: 0.020, speed:  0.004 },
+  { r: 2.2,  n: 64,  color: 0x8F6B43, size: 0.016, speed: -0.003 },
+  { r: 2.9,  n: 80,  color: 0xA84200, size: 0.013, speed:  0.002 },
+  { r: 3.6,  n: 96,  color: 0xB08A5E, size: 0.010, speed: -0.0015 },
+  { r: 4.4,  n: 108, color: 0xA84200, size: 0.008, speed:  0.001 },
 ]
 
 export default function HeroSection() {
@@ -48,7 +48,7 @@ export default function HeroSection() {
     })
 
     const centerGeo = new THREE.SphereGeometry(0.06, 16, 16)
-    const centerMat = new THREE.MeshBasicMaterial({ color: 0xFF6B00 })
+    const centerMat = new THREE.MeshBasicMaterial({ color: 0xA84200 })
     scene.add(new THREE.Mesh(centerGeo, centerMat))
 
     let mouseX = 0, mouseY = 0

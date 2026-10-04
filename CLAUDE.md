@@ -30,19 +30,47 @@ docs/
     IMG_39xx.PNG      — 16 real app screenshots (iPhone)
 ```
 
-## Design System
+## Design System — Sandalwood light, and there is no dark mode
+The site was a near-black page (`#060200`) with legacy saffron `#FF6B00`. Both are gone: the
+app abandoned that saffron in its Sandalwood migration, and a devotional product reading as
+a black screen was the single biggest thing making the site and the app look like different
+products. Tokens are lifted value for value from the app's `constants/theme.ts`.
+
 ```
---saffron: #FF6B00      primary accent (all interactive elements)
---gold:    #FFB340      secondary (Three.js rings, stat labels)
---dark:    #060200      page background
---dark-card: #0E0400   bento card backgrounds
---border:  rgba(255,107,0,0.10)  default border
---text:    #FFF0E0      primary text
---muted:   rgba(255,240,224,0.50) secondary text
+--ground  #FAF6F0   page            --text    #2A1A0E   primary
+--surface #FFFFFF   card            --muted   #6F5A47   secondary
+--sunk    #F1E9DD   well            --muted2  #766350   tertiary
+--line    #EADFD0   hairline        --saffron #A84200   the accent
+--edge    #94815E   seen border     --gold    #8A5A00   secondary accent
 ```
-- **Playfair Display** (serif, italic) for all headings — creates warm editorial feel
+
+**The old variable names still exist and now hold light values** — `--dark` is cream,
+`--dark-card` is white. Renaming them would have meant touching several hundred rules for no
+visual gain and every chance of missing one. Prefer the role names in new rules.
+
+**All 15 text pairs measured, 0 failing** (text 15.57/16.77/13.92, muted 6.04/6.50/5.40,
+muted2 5.31/5.72/4.75, accent 5.66/6.10/5.06, white-on-accent 6.10). Three things that had
+to change to get there, each a trap on a light ground:
+
+- **`--gold` was `#FFB340` — 1.6:1 on cream.** A pale gold is a dark-page device; it is
+  `#8A5A00` now.
+- **`--muted2` was a 0.22-alpha wash**, decorative on black. It carries real text (footer
+  copy, page meta, labels), so it answers to 4.5:1 and had to darken twice. The step below
+  `--muted` is consequently small — that is the cost of a light ground, not an oversight.
+- **`--edge` is `#94815E`, not the app's `#A2906F`.** The app's value is 3.11:1 on white but
+  only **2.89:1** on this cream ground, under the 3:1 floor for a border that must be seen.
+
+**Elevation replaced the border glow.** On black, a card was defined by a saffron ring; on
+cream that reads cheap. Cards take `--lift`, a warm shadow — and the ink is borrowed from
+`--text` rather than neutral grey, because a grey shadow on a warm ground goes blue. Same
+reasoning as the app's `Lift` token.
+
+**Two things stay dark, correctly**: the phone bezel (`#1C140C`) and its island (`#060100`).
+Those are a handset in a photograph, not page chrome — a cream phone reads as a drawing of a
+phone. Their shadows were softened from 0.55/0.7 black, which is soot on cream.
+
+- **Playfair Display** (serif, italic) for all headings — warm editorial feel
 - **Inter** for all body text
-- Dark theme throughout — no light mode toggle on website
 
 ## Page Sections (index.html)
 
