@@ -93,6 +93,19 @@ const STANDALONE = {
     blurb: 'Tithi, Nakshatra, Yoga, Karana, sunrise, sunset and Rahu Kalam \u2014 for where you are.',
     app: 'divinelearning://',
   },
+  /*
+   * The chant card shares someone's own progress, so this page is about the
+   * feature rather than the figure — it says nothing about whose streak it was
+   * and makes no claim the recipient can check. The card already carries the
+   * number and the signature; the page's job is only to explain what produced
+   * them.
+   */
+  streak: {
+    kicker: 'Japa Mala',
+    title: 'Japa Mala and chanting streaks',
+    blurb: 'A digital mala that counts your 108, keeps your daily streak, and works offline.',
+    app: 'divinelearning://streak',
+  },
   muhurat: {
     kicker: 'Muhurat',
     title: 'Daily Muhurat',
@@ -123,7 +136,7 @@ function lookup(collection, id) {
   return { hindi: hindi || english, english: english || '' };
 }
 
-function page({ title, subtitle, description, canonical, appUrl }) {
+function page({ title, subtitle, description, canonical, appUrl, blurb }) {
   // `og:image` must be absolute and publicly reachable — a relative path renders
   // as a card with a blank thumbnail in every client.
   const image = `${SITE}/icon.png`;
@@ -224,7 +237,7 @@ function page({ title, subtitle, description, canonical, appUrl }) {
     <h1>${esc(title)}</h1>
     <p class="sub">Shared from Aradhana Kit</p>
     <div class="rule"><i></i><b>&#9670;</b><i></i></div>
-    <p class="tagline">${esc(TAGLINE)}</p>
+    <p class="tagline">${esc(blurb ?? TAGLINE)}</p>
     <div class="actions">
       <a class="btn primary" href="${IOS_STORE}">Download on the App Store</a>
       <a class="btn ghost" href="${esc(appUrl)}">Open in the app</a>
@@ -253,6 +266,10 @@ export default function handler(req, res) {
       title: standalone.title,
       subtitle: standalone.kicker,
       description: `${standalone.blurb} ${TAGLINE}`,
+      // The page SHOWS the specific line; the meta description carries it plus
+      // the tagline, because a preview card has room for both and benefits from
+      // naming the product.
+      blurb: standalone.blurb,
       canonical: `${SITE}/s/${collection}`,
       appUrl: standalone.app,
     });
