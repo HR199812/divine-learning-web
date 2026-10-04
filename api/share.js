@@ -73,6 +73,35 @@ const TAGLINE =
   'Every aarti, mantra, bhajan, chalisa and sacred text — in one app.';
 
 /**
+ * Pages that are a *subject* rather than one document, so they have no id.
+ *
+ * Their blurbs deliberately say "where you are" rather than naming a place. A
+ * panchang is computed from the viewer's own latitude and longitude, so the only
+ * honest promise this page can make is that the app will compute it for them —
+ * it cannot know, and must not imply, the sharer's location.
+ */
+const STANDALONE = {
+  gita: {
+    kicker: 'Bhagavad Gita',
+    title: 'Today\u2019s Bhagavad Gita verse',
+    blurb: 'A verse for reflection, every day.',
+    app: 'divinelearning://',
+  },
+  panchang: {
+    kicker: 'Panchang',
+    title: 'Today\u2019s Panchang',
+    blurb: 'Tithi, Nakshatra, Yoga, Karana, sunrise, sunset and Rahu Kalam \u2014 for where you are.',
+    app: 'divinelearning://',
+  },
+  muhurat: {
+    kicker: 'Muhurat',
+    title: 'Daily Muhurat',
+    blurb: 'Brahma Muhurta, Abhijit, Rahu Kaal and the full Chaughadia \u2014 for where you are.',
+    app: 'divinelearning://daily-muhurat',
+  },
+};
+
+/**
  * Escapes for *attribute* context, which is where every interpolation below
  * lands (`content="…"`). Titles are Devanagari and carry no markup today, but a
  * title is data from a content pipeline, and an unescaped quote would break out
@@ -217,13 +246,15 @@ export default function handler(req, res) {
 
   let body;
 
-  if (collection === 'gita') {
+  const standalone = STANDALONE[collection];
+
+  if (standalone) {
     body = page({
-      title: 'Today’s Bhagavad Gita verse',
-      subtitle: 'Bhagavad Gita',
-      description: `A verse for reflection, every day. ${TAGLINE}`,
-      canonical: `${SITE}/s/gita`,
-      appUrl: 'divinelearning://',
+      title: standalone.title,
+      subtitle: standalone.kicker,
+      description: `${standalone.blurb} ${TAGLINE}`,
+      canonical: `${SITE}/s/${collection}`,
+      appUrl: standalone.app,
     });
   } else {
     const form = COLLECTIONS[collection];
