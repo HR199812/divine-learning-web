@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["3R4VDLR2W8.com.justanothersupremesoul.divinelearning"],
+        "components": [
+          { "/": "/s/*", "comment": "Shared texts and the daily verse" }
+        ]
+      }
+    ]
+  }
+}

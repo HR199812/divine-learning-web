@@ -1,3 +1,10 @@
+> **This file is out of date above this line.** It describes a pure-HTML site on
+> GitHub Pages with no build step. The repo is now a **Vite + React SPA deployed on
+> Vercel** (`react-router-dom`, `src/pages/*.jsx`, `npm run build` → `dist/`). The
+> design-system values below are still accurate; the stack and file-structure
+> sections are not. The Deep links section at the foot was written against the
+> current setup.
+
 # Aradhana Kit — Web (GitHub Pages)
 
 ## Project Overview
@@ -118,3 +125,78 @@ Changes go live in ~1–2 minutes after push.
 - **Backend** (`../backend/`) — NestJS API serving the app
 - **App bundle ID**: `com.justanothersupremesoul.divinelearning`
 - **GitHub**: `https://github.com/HR199812/divine-learning-web`
+
+
+---
+
+# Deep links & share pages
+
+Shares sent from the app point at `https://aradhana-kit.vercel.app/s/<collection>/<id>`.
+Three pieces make that work, and they fail independently.
+
+## 1. `/s/*` is a serverless function, not a React route — and has to be
+
+This site is an SPA: the HTML Vercel serves is an empty `<div id="root">` that React
+fills **in the browser**. Crawlers do not run JavaScript. WhatsApp, iMessage, Telegram
+and Slack fetch the URL, read the bytes that come back, and build their card from the
+Open Graph tags in them — so a `<Route path="/s/...">` setting tags from `useEffect`
+yields no preview at all. That is precisely the "the share URL doesn't show the app
+preview" complaint.
+
+`api/share.js` renders the tags server-side. `vercel.json` rewrites `/s/:collection/:id`
+to it **before** the SPA catch-all, and the catch-all now excludes `api/`, `s/` and
+`.well-known/` — it previously swallowed every path, including the association files.
+
+- **It never 404s.** An unknown id still returns a 200 with a real page: a crawler that
+  gets a 404 renders nothing, and the index is a build-time snapshot, so a text added
+  since the last deploy legitimately lands there.
+- **It does not bounce to `divinelearning://` on load.** Universal links already handle
+  the installed case *before* this page is reached, so a redirect could only fire for
+  someone **without** the app — where iOS shows "Cannot open page" and desktop breaks
+  outright. There is a button instead.
+- `og:image` is absolute. A relative path renders as a card with a blank thumbnail
+  everywhere.
+
+## 2. Titles are bundled, not fetched
+
+`api/_share-index.json` (487 KB, 3,275 documents) is generated from the app's content
+snapshot by `npm run build:share-index`, and the app repo must be checked out beside this
+one (or `APP_DIR` set).
+
+It is bundled rather than fetched **because the consumer is a crawler**: it waits a very
+short time and renders whatever arrived. The backend sleeps on Render's free tier and
+takes 30s+ to answer a cold request, by which point the preview is already lost. A
+preview must not depend on another service being awake at the moment someone pastes a
+link. Re-run the generator after any content re-export.
+
+## 3. The two association files — currently placeholders
+
+`public/.well-known/apple-app-site-association` and `assetlinks.json` are what make a
+tapped link open the **app** instead of the browser. Both still contain
+`REPLACE_WITH_…`; `npm run check:links` reports what is outstanding and where to find
+each value, and runs on every `npm run build`.
+
+It is **advisory, not fatal**, on purpose — the site and the share pages work without
+them, they simply open in a browser. Set `STRICT_APP_LINKS=1` to make it fail a build.
+
+**A placeholder is worse than an absent file.** iOS fetches the AASA at install time and
+*caches the result*, so shipping one teaches every device that this domain has no valid
+association, and the correction only lands when the OS next refreshes. Fill both in
+before relying on app-opening behaviour.
+
+Serve requirements, all handled in `vercel.json`: `application/json`, no redirect (iOS
+follows none), no extension on the Apple file.
+
+## Order of operations
+
+1. **Deploy this repo** — `/s/...` pages go live and previews start working.
+2. **Flip `CONTENT_PAGES_LIVE` to `true`** in the app's `utils/share-links.ts`. Until
+   then shares carry the store link, because pointing them at pages that 404 is worse
+   than not deep-linking at all.
+3. **Fill the two placeholders**, redeploy, and rebuild the app (`associatedDomains` /
+   `intentFilters` are native config — an OTA update will not move them). Links now open
+   the app when it is installed.
+
+Verify Android with
+`adb shell pm get-app-links com.justanothersupremesoul.divinelearning` — `verified` is
+the state you want.
