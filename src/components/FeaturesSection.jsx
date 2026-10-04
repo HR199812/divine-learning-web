@@ -79,13 +79,6 @@ export default function FeaturesSection() {
             <div className="bento-desc">Birth chart, running dasha, Guna Milan, daily muhurat and panchang — all from one birth moment. <a href="#jyotish">See all →</a></div>
           </div>
 
-          <div className="bento-item bento-wide">
-            <div className="bento-icon"><i className="fa-solid fa-calendar-days"></i></div>
-            <div className="bento-label">Festival Calendar</div>
-            <div className="bento-desc">80+ Hindu festivals from 2026 to 2030 with countdown timers, descriptions, and associated deities. Never miss a sacred day.</div>
-            <div className="bento-deco" style={{ fontSize: '54px', right: '24px', bottom: '20px', color: 'rgba(255,107,0,0.07)' }}>2026–2030</div>
-          </div>
-
         </div>
       </div>
     </section>
