@@ -25,24 +25,38 @@ const INDEX = require('./_share-index.json');
  * tags have to be in the bytes of the first response, which means rendering them
  * on the server.
  *
- * ─── THIS PAGE IS THE *FALLBACK*, NOT THE HAPPY PATH ───
- * When the app is installed, iOS and Android hand the URL straight to it and this
- * page is never drawn — that is what `/.well-known/apple-app-site-association` and
- * `/.well-known/assetlinks.json` buy. So everyone who actually sees this screen
- * does **not** have the app. It is written for them: say what was shared, then
- * offer the stores.
+ * ─── THIS PAGE IS THE DESTINATION, NOT A FALLBACK ───
+ * It was written as the page people without the app would land on, with universal
+ * links carrying everyone else straight into the app. That was descoped: shares
+ * now simply go to this page, and it has to serve both audiences. So it names what
+ * was shared, offers the App Store to people who need it, and offers the app to
+ * people who already have it.
+ *
+ * The association files are still deployed and `app.json` still claims the domain,
+ * so if a future native build ships, installed devices start bypassing this page
+ * again with no change here.
  *
  * ─── IT DOES NOT AUTO-REDIRECT INTO THE APP SCHEME ───
  * The usual trick — bouncing to `divinelearning://…` on load — is deliberately
- * absent. Universal links already cover the installed case before this page
- * exists, so a redirect here can only fire for someone *without* the app, where
- * iOS shows a "Cannot open page" dialog and Android does nothing. It also breaks
- * desktop entirely. There is a button instead, which the few people who need it
- * can press.
+ * absent. It fires for everyone, including the majority without the app, where iOS
+ * shows a "Cannot open page" dialog and Android does nothing; it also breaks
+ * desktop outright. The scheme is offered as a button the few who want it can
+ * press, which costs nothing when it is ignored.
+ *
+ * ─── ONE STORE, FOR NOW ───
+ * Google Play is not rendered — the Android build is not out. See `PLAY_STORE`.
  */
 
 const SITE = 'https://aradhana-kit.vercel.app';
 const IOS_STORE = 'https://apps.apple.com/in/app/aradhana-kit/id6781756782';
+
+/**
+ * Not rendered — the Android build is not out yet, and a store button that
+ * leads to a listing nobody can install from is worse than no button. Kept
+ * rather than deleted because this is a "for now", and the URL is cheaper to
+ * keep than to re-derive. Restore it as the ghost button in `.actions`.
+ */
+// eslint-disable-next-line no-unused-vars
 const PLAY_STORE =
   'https://play.google.com/store/apps/details?id=com.justanothersupremesoul.divinelearning';
 
@@ -114,24 +128,22 @@ function page({ title, subtitle, description, canonical, appUrl }) {
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#060200;color:#FFF0E0;font-family:Inter,system-ui,sans-serif;
+  body{background:#FAF6F0;color:#2A1A0E;font-family:Inter,system-ui,sans-serif;
        min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
   .card{max-width:520px;width:100%;text-align:center}
-  .icon{width:84px;height:84px;border-radius:20px;margin:0 auto 26px;display:block}
+  .icon{width:84px;height:84px;border-radius:20px;margin:0 auto 26px;display:block;
+        box-shadow:0 4px 16px rgba(42,26,14,.10)}
   .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-          color:#FF6B00;font-weight:600;margin-bottom:14px}
+          color:#A84200;font-weight:600;margin-bottom:14px}
   h1{font-family:'Playfair Display',Georgia,serif;font-size:34px;line-height:1.25;
      font-weight:700;margin-bottom:10px}
-  .sub{font-size:16px;color:rgba(255,240,224,.55);margin-bottom:28px}
-  .tagline{font-size:15px;line-height:1.6;color:rgba(255,240,224,.72);
-           margin-bottom:34px}
+  .sub{font-size:16px;color:#6F5A47;margin-bottom:28px}
+  .tagline{font-size:15px;line-height:1.6;color:#6F5A47;margin-bottom:34px}
   .actions{display:flex;flex-direction:column;gap:12px;align-items:center}
   a.btn{display:block;width:100%;max-width:320px;padding:15px 22px;border-radius:14px;
         text-decoration:none;font-weight:600;font-size:15px}
-  .primary{background:#FF6B00;color:#140A02}
-  .ghost{border:1px solid rgba(255,107,0,.32);color:#FFF0E0}
-  .open{font-size:13px;color:rgba(255,240,224,.45);margin-top:22px}
-  .open a{color:#FF6B00}
+  .primary{background:#A84200;color:#FFFFFF}
+  .ghost{border:1px solid #94815E;color:#2A1A0E}
   @media(max-width:420px){h1{font-size:27px}}
 </style>
 </head>
@@ -144,9 +156,8 @@ function page({ title, subtitle, description, canonical, appUrl }) {
     <p class="tagline">${esc(TAGLINE)}</p>
     <div class="actions">
       <a class="btn primary" href="${IOS_STORE}">Download on the App Store</a>
-      <a class="btn ghost" href="${PLAY_STORE}">Get it on Google Play</a>
+      <a class="btn ghost" href="${esc(appUrl)}">Open in the app</a>
     </div>
-    <p class="open">Already have the app? <a href="${esc(appUrl)}">Open it here</a>.</p>
   </main>
 </body>
 </html>`;

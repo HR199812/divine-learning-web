@@ -155,7 +155,7 @@ export default function Support() {
               Try these steps:
               <ul>
                 <li>Force-close and reopen the app</li>
-                <li>Check for app updates in the App Store / Google Play</li>
+                <li>Check for app updates in the App Store</li>
                 <li>Restart your device</li>
                 <li>Uninstall and reinstall the app (your account data is stored on our servers and will sync back)</li>
               </ul>
