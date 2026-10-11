@@ -479,35 +479,6 @@ footer {
 .gallery-section { padding: 100px 0; }
 .gallery-header { padding: 0 40px; max-width: 1160px; margin: 0 auto 56px; }
 
-.screen-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 282px;
-  gap: 14px;
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-.screen-card {
-  background: var(--dark-card);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 14px; overflow: hidden;
-  transition: border-color .35s, box-shadow .35s;
-  position: relative;
-}
-.screen-card::after {
-  content: '';
-  position: absolute; inset: 0; border-radius: 22px;
-  background: radial-gradient(circle at 50% 85%, rgba(168,66,0,0.07) 0%, transparent 60%);
-  opacity: 0; transition: opacity .35s; pointer-events: none;
-}
-.screen-card:hover { border-color: var(--border-hover); box-shadow: 0 0 40px rgba(168,66,0,0.06); }
-.screen-card:hover::after { opacity: 1; }
-
 /*
  * ─── NO PHONE CHROME ───
  * These were drawn as handsets: a dark bezel, a notch island and a heavy drop
@@ -526,28 +497,60 @@ footer {
  * is ever reverted to frames, note that a cream bezel does not work either — it
  * reads as a drawing of a phone.
  */
-.phone-frame {
-  border-radius: 22px;
-  background: var(--surface);
+/*
+ * ─── THE SCREEN WALL ───
+ * Screenshots stand on the ground, not in cards (see GallerySection.jsx). The
+ * NO PHONE CHROME note above still holds: no bezel, the screenshot's own rounded
+ * corners, a hairline, and a warm lift — now a deeper one, because without a
+ * card the shadow is what separates the screen from the page. The shadow ink is
+ * `--text`, not grey: grey on a warm ground reads blue.
+ */
+.screen-wall {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 40px;
+  align-items: start;
+}
+.screen-col { display: flex; flex-direction: column; gap: 40px; }
+/* Columns 2 and 4 drop a step — the stagger that makes it a wall. */
+.screen-col:nth-child(2), .screen-col:nth-child(4) { padding-top: 64px; }
+
+.shot { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.shot img {
+  display: block; width: 100%; height: auto;
+  border-radius: 26px;
   border: 1px solid var(--line);
-  box-shadow: var(--lift);
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-  transition: box-shadow .3s, transform .3s;
+  background: var(--surface);
+  box-shadow: 0 2px 6px rgba(42,26,14,0.06), 0 22px 44px -20px rgba(42,26,14,0.30);
+  transition: transform .35s ease, box-shadow .35s ease;
 }
-.phone-frame:hover {
-  box-shadow: var(--lift-hover);
-  transform: translateY(-4px);
+.shot:hover img {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 10px rgba(42,26,14,0.07), 0 30px 56px -22px rgba(42,26,14,0.36);
 }
-.phone-frame img {
-  width: 100%; border-radius: 21px; display: block; object-fit: cover;
+.shot figcaption {
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  text-align: center; letter-spacing: 0.2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shot img, .shot:hover img { transition: none; transform: none; }
 }
 
-.screen-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 1.2px;
-  text-transform: uppercase; color: var(--muted2);
-  position: relative; z-index: 1;
+/* Phone: one snap-scrolling row instead of the wall. */
+.screen-rail { display: none; }
+@media (max-width: 900px) {
+  .screen-wall { display: none; }
+  .screen-rail {
+    display: flex; gap: 18px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 8px 24px 32px;
+    scrollbar-width: none;
+  }
+  .screen-rail::-webkit-scrollbar { display: none; }
+  .screen-rail .shot { flex: 0 0 min(62vw, 230px); scroll-snap-align: center; }
 }
 
 /* ── LEGAL PAGES ─────────────────────────────────────────── */
@@ -705,8 +708,6 @@ details[open] summary::after { transform: rotate(180deg); }
   .lang-scripts { display: none; }
   .tools-bento { grid-template-columns: 1fr 1fr; }
   .temples-header { flex-direction: column; align-items: flex-start; }
-  .screen-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 300px; }
-  .screen-card { grid-column: auto !important; grid-row: auto !important; }
 }
 @media (max-width: 640px) {
   .nav-home { padding: 7px 7px 7px 14px; top: 12px; }
@@ -717,7 +718,6 @@ details[open] summary::after { transform: rotate(180deg); }
   .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
   .stat-item:last-child { border-bottom: none; }
   .stats-inner { flex-direction: column; }
-  .screen-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 250px; gap: 10px; padding: 0 20px; }
 }
 
 /* ─── Jyotish section ────────────────────────────────────────────────────────
@@ -779,4 +779,129 @@ details[open] summary::after { transform: rotate(180deg); }
 
 @media (max-width: 560px) {
   .jyotish-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Panchang Calendar & Festivals ──────────────────────────────────────────
+   The app's month grid on the page, computed live (PanchangSection.jsx). Same
+   card recipe as the Jyotish cards. A cell carries the date, the Moon and the
+   tithi, and a dot — not a festival name — for the reason the app gives: seven
+   columns leave no room for a name at a readable size. Names are in "Coming up". */
+.pc-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 46px;
+  align-items: start;
+}
+.pc-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--lift);
+  padding: 22px 20px;
+  min-width: 0;
+}
+.pc-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.pc-month { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: var(--text); }
+.pc-place { font-size: 13px; color: var(--muted); }
+.pc-place i { color: var(--saffron); margin-right: 4px; }
+.pc-week, .pc-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.pc-week span { text-align: center; font-size: 12px; font-weight: 700; color: var(--muted); padding-bottom: 8px; }
+.pc-cell {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 7px 2px 8px; min-height: 78px; border-radius: 12px;
+}
+.pc-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums;
+}
+.pc-today .pc-num { background: var(--saffron); color: var(--on-accent); }
+.pc-tithi {
+  font-size: 12px; color: var(--muted); max-width: 100%;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px;
+}
+.pc-dot { position: absolute; top: 7px; right: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--saffron); }
+/* Printed-almanac inks: the shadow is ink, the lit part is paper — a full moon
+   is an open circle, as on a printed panchang. */
+.pc-moon-shade { fill: var(--muted); }
+.pc-moon-lit { fill: var(--surface); }
+.pc-moon-rim { fill: none; stroke: var(--muted); stroke-width: 1; }
+
+.pc-skel { display: block; width: 26px; height: 46px; border-radius: 9px; background: var(--sunk); }
+.pc-error { margin-top: 12px; font-size: 13px; color: var(--muted); }
+
+@media (max-width: 900px) {
+  .pc-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .pc-card { padding: 18px 12px; }
+  .pc-cell { min-height: 68px; padding: 5px 1px 6px; }
+  .pc-num { width: 26px; height: 26px; font-size: 14px; }
+  .pc-dot { top: 5px; right: 4px; }
+}
+
+/* ─── Interactive calendar ───────────────────────────────────────────────────
+   Month stepper, selectable days and the selected-day panel — the app's
+   calendar screen, on the page. */
+.pc-try {
+  margin: 36px auto 0; text-align: center; font-size: 14px; color: var(--muted);
+}
+.pc-try i { color: var(--saffron); margin-right: 6px; }
+.pc-layout { margin-top: 18px; }
+.pc-head-mid { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
+.pc-step {
+  flex: none; width: 40px; height: 40px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--saffron);
+  font-size: 14px; cursor: pointer; transition: border-color .2s, background .2s;
+}
+.pc-step:hover { border-color: var(--border-hover); background: var(--sunk); }
+.pc-step:focus-visible, .pc-day:focus-visible, .pc-today-btn:focus-visible {
+  outline: 2px solid var(--saffron); outline-offset: 2px;
+}
+.pc-today-btn {
+  display: block; margin: -4px auto 12px; padding: 6px 12px; border-radius: 100px;
+  border: 1px solid var(--edge); background: transparent; color: var(--saffron);
+  font: 600 13px Inter, system-ui, sans-serif; cursor: pointer;
+}
+.pc-today-btn i { margin-right: 4px; }
+.pc-day {
+  border: 1.5px solid transparent; background: transparent; cursor: pointer;
+  font: inherit; color: inherit; transition: background .15s, border-color .15s;
+}
+.pc-day:hover { background: var(--sunk); }
+/* Selected: an accent border on a faint accent wash. Today keeps its filled
+   disc, so the two states never look alike. */
+.pc-selected, .pc-selected:hover { border-color: var(--saffron); background: rgba(168,66,0,0.07); }
+.pc-num-pending { color: var(--muted); }
+
+.pc-panel { display: flex; flex-direction: column; gap: 16px; }
+.pc-panel-date { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: var(--text); }
+.pc-panel-tithi { display: flex; align-items: center; gap: 14px; }
+.pc-panel-tithi-name { font-size: 18px; font-weight: 600; color: var(--text); }
+.pc-panel-sub { font-size: 14px; color: var(--muted); margin: 0; }
+.pc-facts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;
+  padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.pc-facts span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+.pc-facts span i { color: var(--saffron); margin-right: 3px; }
+.pc-facts b { font-size: 15px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.pc-panel-fests { display: flex; flex-direction: column; gap: 10px; }
+.pc-panel-fest { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pc-fest-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--saffron); flex: none; }
+.pc-fest-dot-minor { background: var(--edge); }
+.pc-panel-fest-name { font-size: 15.5px; font-weight: 600; color: var(--text); flex: 1; min-width: 0; }
+.pc-chip {
+  font-size: 11.5px; font-weight: 700; color: var(--muted);
+  background: rgba(111,90,71,0.08); border: 1px solid rgba(111,90,71,0.2);
+  padding: 2px 9px; border-radius: 100px;
+}
+.pc-chip-fast { color: var(--saffron); background: rgba(168,66,0,0.08); border-color: rgba(168,66,0,0.2); }
+.pc-panel-loading { display: flex; flex-direction: column; gap: 12px; }
+.pc-skel-wide { width: 100%; height: 40px; }
+@media (max-width: 480px) {
+  .pc-facts { grid-template-columns: 1fr 1fr; }
+  .pc-step { width: 36px; height: 36px; }
 }

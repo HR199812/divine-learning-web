@@ -40,19 +40,19 @@ const CARDS = [
   },
   {
     icon: 'fa-clock',
-    title: 'Daily Muhurat',
+    title: 'Sun & Muhurat',
     desc:
-      'Brahma Muhurta, Abhijit, Rahu Kaal, the full Chaughadia table, plus Bhadra and ' +
-      'Panchak — computed for where you actually are.',
-    tags: ['6 window types', 'Your location', 'Share as a card'],
+      'The day drawn as the Sun moves through it — Brahma Muhurta, Abhijit and Amrit Kalam ' +
+      'in green, Rahu Kaal, Yamaganda and Gulika in red, with the Chaughadia a tap away.',
+    tags: ['What’s on now', 'Day & night Chaughadia', 'Share as a card'],
   },
   {
     icon: 'fa-sun',
     title: 'Panchang',
     desc:
-      'All five limbs — Vara, Tithi, Nakshatra, Yoga and Karana — with sunrise, sunset ' +
-      'and Rahu Kalam, for any date you choose.',
-    tags: ['Any date', 'Amanta & Purnimanta', 'Vikram Samvat'],
+      'All five limbs — Vara, Tithi, Nakshatra, Yoga and Karana — at sunrise, with when each ' +
+      'ends, and a month calendar of tithis and festivals. Works offline.',
+    tags: ['Month calendar', 'Amanta & Purnimanta', 'Vikram Samvat'],
   },
 ]
 

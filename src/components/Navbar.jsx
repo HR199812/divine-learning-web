@@ -7,6 +7,7 @@ export default function Navbar() {
       </a>
       <ul className="nav-links">
         <li><a href="#features">Features</a></li>
+        <li><a href="#panchang">Panchang</a></li>
         <li><a href="#temples">Temples</a></li>
         <li><a href="#languages">Languages</a></li>
         <li><a href="#tools">Tools</a></li>

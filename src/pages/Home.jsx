@@ -7,6 +7,7 @@ import StatsStrip from '../components/StatsStrip'
 import GallerySection from '../components/GallerySection'
 import FeaturesSection from '../components/FeaturesSection'
 import JyotishSection from '../components/JyotishSection'
+import PanchangSection from '../components/PanchangSection'
 import TemplesSection from '../components/TemplesSection'
 import LanguagesSection from '../components/LanguagesSection'
 import ToolsSection from '../components/ToolsSection'
@@ -57,6 +58,7 @@ export default function Home() {
       <GallerySection />
       <FeaturesSection />
       <JyotishSection />
+      <PanchangSection />
       <TemplesSection />
       <LanguagesSection />
       <ToolsSection />

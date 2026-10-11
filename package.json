@@ -10,7 +10,9 @@
     "build:share-index": "node scripts/build-share-index.mjs"
   },
   "dependencies": {
+    "@ishubhamx/panchangam-js": "^3.0.0",
     "animejs": "^3.2.2",
+    "astronomy-engine": "^2.1.19",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.0",

@@ -11,7 +11,7 @@ export default function Terms() {
       <div className="page-wrap">
         <div className="page-eyebrow"><i className="fa-solid fa-file-contract"></i> Legal</div>
         <h1 className="page-title">Terms &amp; Conditions</h1>
-        <p className="page-meta">Last updated: June 7, 2026 &nbsp;·&nbsp; Effective: June 7, 2026</p>
+        <p className="page-meta">Last updated: October 11, 2026 &nbsp;·&nbsp; Effective: June 7, 2026</p>
 
         <div className="prose">
 
@@ -31,7 +31,7 @@ export default function Terms() {
             <li>Daily Bhagavad Gita verses with audio recitation</li>
             <li>Panchang (Hindu calendar) and auspicious timing (Muhurat)</li>
             <li>AI-powered spiritual guidance chat</li>
-            <li>Sankalpa tracker, Kundli, Horoscope, and Guna Milan</li>
+            <li>Festival calendar and alerts, Sankalpa tracker, Kundli, Horoscope, and Guna Milan</li>
             <li>Support for 10 Indian languages</li>
           </ul>
           <p>The App is provided free of charge with no advertisements or in-app purchases.</p>
@@ -61,10 +61,11 @@ export default function Terms() {
           <h2><i className="fa-solid fa-om"></i>5. Spiritual Content Disclaimer</h2>
           <p>Aradhana Kit provides spiritual and devotional content for informational and educational purposes only.</p>
           <div className="highlight-box">
-            <strong>Important:</strong> The content in this App — including sacred texts, temple information, Panchang, Muhurat, and Kundli — is provided for general informational purposes. It does not constitute religious authority, priestly advice, or a substitute for consultation with a qualified pandit, astrologer, or spiritual guide.
+            <strong>Important:</strong> The content in this App — including sacred texts, temple information, festival dates, Panchang, Muhurat, and Kundli — is provided for general informational purposes. It does not constitute religious authority, priestly advice, or a substitute for consultation with a qualified pandit, astrologer, or spiritual guide.
           </div>
           <ul>
             <li>Panchang, Muhurat, and Kundli data are computed algorithmically and may differ from traditional calculations</li>
+            <li>Festival dates may vary by region and tradition</li>
             <li>Temple visiting information (timings, directions) may change — always verify before visiting</li>
             <li>We make no claims of religious authority or spiritual efficacy</li>
           </ul>

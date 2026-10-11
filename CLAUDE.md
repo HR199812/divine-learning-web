@@ -228,3 +228,38 @@ follows none), no extension on the Apple file.
 Verify Android with
 `adb shell pm get-app-links com.justanothersupremesoul.divinelearning` — `verified` is
 the state you want.
+
+---
+
+# Panchang Calendar & Festivals section, and the screen wall (2026-10-11)
+
+**`#panchang` is the app's calendar, live.** `src/components/PanchangSection.jsx` runs the
+same engine the app ships (`@ishubhamx/panchangam-js` on `astronomy-engine`) in the
+visitor's browser: month grid with sunrise tithi and Moon phase, ‹ › months, "Back to
+today", tap or arrow-key a day for its panel (tithi + end time, nakshatra, sunrise,
+sunset, that day's festivals with Major / Ekadashi / Vrat / Solar tags). Shown for New
+Delhi, IST, and the note says so. There is deliberately **no "coming up" list** — the
+app's Festivals screen is that list.
+
+- **`src/lib/panchang.js`** is a trimmed port of the app's `utils/panchang.ts`. Deep
+  imports only — the package root pulls in a module that `require`s `fs`.
+- **`vite.config.js` aliases `astronomy-engine` to its CommonJS build.** Its `exports`
+  map gives `import` the ESM file and `require` the CJS one; the engine `require`s it,
+  so two copies would mean two `Observer` classes and every call would throw "Not an
+  instance of the Observer class" — exactly what crashed the app on device. Verify after
+  dependency changes: `grep -c 'Not an instance of the Observer class' dist/assets/panchang-*.js` → 1.
+- **Lazy.** The engine is its own chunk (~75 KB gzip), imported only when the section is
+  within 400px of the viewport. Months are cached per visit.
+- **Headless Chrome can't verify it** (`--dump-dom` with `--virtual-time-budget` doesn't
+  run this SPA's modules). Check the engine under Node by bundling `src/lib/panchang.js`
+  with esbuild and the same alias, and check the page in a real browser.
+
+The festival bento card ("Festivals & Vrats") and Terms' festival lines are back — they
+were removed in `da8c29e` while the app had no festivals screen.
+
+**The gallery is a staggered wall, not cards** (`GallerySection.jsx`). Screenshots stand
+on the ground with a deep warm lift; five columns dealt round-robin in reading order,
+columns 2 and 4 dropped 64px; below 900px it becomes one snap-scrolling row. It holds
+all 13 screens including Sun & Muhurat, Panchang Calendar and Festivals (440px wide PNGs
+in `public/images/`). The old `.screen-grid` / `.screen-card` / `.phone-frame` rules are
+gone — cards around screenshots left most of every tile empty and clipped the labels.

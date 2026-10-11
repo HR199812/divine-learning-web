@@ -53,7 +53,7 @@ export default function FeaturesSection() {
           <div className="bento-item">
             <div className="bento-icon"><i className="fa-solid fa-moon"></i></div>
             <div className="bento-label">Panchang & Muhurat</div>
-            <div className="bento-desc">Live daily Panchang — Tithi, Nakshatra, Yoga, Karana — based on your location. Brahma Muhurta and Rahu Kaal included.</div>
+            <div className="bento-desc">Tithi, Nakshatra, Yoga and Karana as they stood at sunrise, for where you are — and when each one ends. Computed on your phone, so it works offline.</div>
           </div>
 
           <div className="bento-item bento-wide">
@@ -77,6 +77,19 @@ export default function FeaturesSection() {
             <div className="bento-icon"><i className="fa-solid fa-star-of-david"></i></div>
             <div className="bento-label">Jyotish</div>
             <div className="bento-desc">Birth chart, running dasha, Guna Milan, daily muhurat and panchang — all from one birth moment. <a href="#jyotish">See all →</a></div>
+          </div>
+
+          {/* Back now that the app ships it — see PanchangSection.jsx for why it
+              was taken off (commit da8c29e) and the live calendar it points to. */}
+          <div className="bento-item bento-wide">
+            <div className="bento-icon"><i className="fa-solid fa-calendar-days"></i></div>
+            <div className="bento-label">Festivals &amp; Vrats</div>
+            <div className="bento-desc">Every festival and vrat of the month, filtered by Major, Ekadashi, Vrat and Solar — with puja timings, how each is kept, and a note at 6 AM on the day. <a href="#panchang">See this month →</a></div>
+            <div className="bento-tags">
+              <span className="bento-tag"><i className="fa-solid fa-moon"></i> Ekadashi &amp; Purnima</span>
+              <span className="bento-tag"><i className="fa-solid fa-sun"></i> Sankranti</span>
+              <span className="bento-tag"><i className="fa-solid fa-bell"></i> Fasting-day alerts</span>
+            </div>
           </div>
 
         </div>
