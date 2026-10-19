@@ -932,8 +932,6 @@ details[open] summary::after { transform: rotate(180deg); }
   background: none; border: 0; padding: 0; font: inherit; color: var(--saffron);
   cursor: pointer; text-decoration: underline;
 }
-.delete-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text); margin-top: 4px; cursor: pointer; }
-.delete-check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--danger); flex: none; }
 .delete-error { font-size: 14px; font-weight: 600; color: var(--danger); }
 .delete-btn { align-self: flex-start; margin-top: 6px; border: 0; cursor: pointer; font: inherit; }
 .delete-btn:disabled { opacity: 0.7; cursor: default; transform: none; }
@@ -942,3 +940,13 @@ details[open] summary::after { transform: rotate(180deg); }
   padding: 12px 22px; border-radius: 999px;
 }
 .delete-btn-danger:hover:not(:disabled) { filter: brightness(0.92); }
+/* The final step: the danger colour lives here and nowhere earlier in the flow. */
+.delete-confirm { border-color: var(--danger); }
+.delete-card h3 i.delete-warn { color: var(--danger); }
+.delete-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.delete-actions .delete-btn { margin-top: 0; }
+.delete-btn-cancel {
+  background: var(--surface); color: var(--text); font-weight: 600; font-size: 15px;
+  padding: 12px 22px; border-radius: 999px; border: 1px solid var(--edge);
+}
+.delete-btn-cancel:hover:not(:disabled) { background: var(--sunk); }

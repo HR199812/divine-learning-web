@@ -25,11 +25,10 @@ async function post(path, body) {
 }
 
 function DeleteForm() {
-  // email → code → done
+  // email → code → confirm → done
   const [step, setStep] = useState('email')
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
-  const [confirmed, setConfirmed] = useState(false)
   const [busy, setBusy] = useState(false)
   const [slow, setSlow] = useState(false)
   const [error, setError] = useState('')
@@ -53,10 +52,16 @@ function DeleteForm() {
     })
   }
 
-  const remove = (e) => {
+  const review = (e) => {
     e.preventDefault()
     if (!/^\d{6}$/.test(code.trim())) { setError('Enter the 6-digit code from the email.'); return }
-    if (!confirmed) { setError('Tick the box to confirm you want to delete your account.'); return }
+    setError('')
+    setStep('confirm')
+  }
+
+  // The only step that deletes anything, and it is reached only by an explicit
+  // second press after reading what will go.
+  const remove = () => {
     run(async () => {
       const r = await post('/auth/delete-account', { email: normalised, otp: code.trim() })
       setResult(r.deleted ? 'deleted' : 'none')
@@ -82,8 +87,27 @@ function DeleteForm() {
     )
   }
 
+  if (step === 'confirm') {
+    return (
+      <div className="delete-card delete-confirm" role="alertdialog" aria-labelledby="del-confirm-title" aria-describedby="del-confirm-body">
+        <h3 id="del-confirm-title"><i className="fa-solid fa-triangle-exclamation delete-warn"></i> Delete this account permanently?</h3>
+        <p id="del-confirm-body">You're about to delete the Aradhana Kit account for <strong>{normalised}</strong>. Your chant history, streaks, Sankalpa, saved texts and settings will be erased immediately. <strong>This cannot be undone.</strong></p>
+        {error && <p className="delete-error" role="alert">{error}</p>}
+        {busy && slow && <p className="delete-hint">Waking the server — the first request can take up to a minute.</p>}
+        <div className="delete-actions">
+          <button type="button" className="delete-btn delete-btn-danger" onClick={remove} disabled={busy}>
+            {busy ? 'Deleting…' : 'Yes, delete permanently'}
+          </button>
+          <button type="button" className="delete-btn delete-btn-cancel" onClick={() => { setStep('code'); setError('') }} disabled={busy}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <form className="delete-card" onSubmit={step === 'email' ? sendCode : remove} noValidate>
+    <form className="delete-card" onSubmit={step === 'email' ? sendCode : review} noValidate>
       <label className="delete-label" htmlFor="del-email">Email address you sign in with</label>
       <input
         id="del-email" className="delete-input" type="email" autoComplete="email" inputMode="email"
@@ -100,18 +124,14 @@ function DeleteForm() {
             maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))} disabled={busy}
             placeholder="••••••"
           />
-          <label className="delete-check">
-            <input type="checkbox" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} disabled={busy} />
-            <span>I understand this permanently deletes my account and data, and cannot be undone.</span>
-          </label>
         </>
       )}
 
       {error && <p className="delete-error" role="alert">{error}</p>}
       {busy && slow && <p className="delete-hint">Waking the server — the first request can take up to a minute.</p>}
 
-      <button type="submit" className={step === 'email' ? 'btn-primary delete-btn' : 'delete-btn delete-btn-danger'} disabled={busy}>
-        {busy ? 'Please wait…' : step === 'email' ? 'Email me a code' : 'Delete my account'}
+      <button type="submit" className="btn-primary delete-btn" disabled={busy}>
+        {busy ? 'Please wait…' : step === 'email' ? 'Email me a code' : 'Continue'}
       </button>
     </form>
   )
