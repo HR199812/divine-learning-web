@@ -29,6 +29,7 @@
   --line:    #EADFD0;   /* hairline separation; 1.22:1, decorative only */
   --on-accent: #FFFFFF;
   --success: #1B7F3B;
+  --danger:  #B3261E;   /* destructive actions; 6.54:1 on surface, white on it 6.54:1 */
 
   /*
    * `edge` is for a border that must be SEEN rather than implied — 3:1 per WCAG
@@ -905,3 +906,39 @@ details[open] summary::after { transform: rotate(180deg); }
   .pc-facts { grid-template-columns: 1fr 1fr; }
   .pc-step { width: 36px; height: 36px; }
 }
+
+/* ── /delete-account ───────────────────────────────────────────────────────── */
+.delete-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: var(--lift); padding: 24px; margin: 8px 0 40px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.delete-card h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 0; }
+.delete-card h3 i { margin-right: 6px; color: var(--saffron); }
+.delete-card h3 i.delete-ok { color: var(--success); }
+.delete-card p { font-size: 15px; color: var(--muted); margin: 0; }
+.delete-card strong { color: var(--text); }
+.delete-label { font-size: 13px; font-weight: 600; color: var(--text); }
+/* --edge, not --line: a field has to be seen to be found (3.78:1). */
+.delete-input {
+  font: inherit; font-size: 16px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--edge); border-radius: 10px; padding: 12px 14px; width: 100%; box-sizing: border-box;
+}
+.delete-input:focus { outline: 2px solid var(--saffron); outline-offset: 1px; border-color: var(--saffron); }
+.delete-input:disabled { background: var(--sunk); color: var(--muted); }
+.delete-code { letter-spacing: 8px; font-size: 22px; font-weight: 700; max-width: 220px; }
+.delete-hint { font-size: 14px; color: var(--muted); }
+.delete-link {
+  background: none; border: 0; padding: 0; font: inherit; color: var(--saffron);
+  cursor: pointer; text-decoration: underline;
+}
+.delete-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text); margin-top: 4px; cursor: pointer; }
+.delete-check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--danger); flex: none; }
+.delete-error { font-size: 14px; font-weight: 600; color: var(--danger); }
+.delete-btn { align-self: flex-start; margin-top: 6px; border: 0; cursor: pointer; font: inherit; }
+.delete-btn:disabled { opacity: 0.7; cursor: default; transform: none; }
+.delete-btn-danger {
+  background: var(--danger); color: var(--on-accent); font-weight: 600; font-size: 15px;
+  padding: 12px 22px; border-radius: 999px;
+}
+.delete-btn-danger:hover:not(:disabled) { filter: brightness(0.92); }

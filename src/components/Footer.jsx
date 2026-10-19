@@ -58,6 +58,7 @@ export default function Footer() {
         <Link to="/support"><i className="fa-solid fa-circle-question"></i> Support</Link>
         <Link to="/privacy-policy"><i className="fa-solid fa-shield-halved"></i> Privacy</Link>
         <Link to="/terms"><i className="fa-solid fa-file-contract"></i> Terms</Link>
+        <Link to="/delete-account"><i className="fa-solid fa-user-xmark"></i> Delete account</Link>
         <ContactButton />
       </div>
     </footer>
