@@ -2,6 +2,12 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import LegalNav from '../components/LegalNav'
 
+/*
+ * Keep this page true to the app. Google Play compares it with the app's Data safety
+ * answers, and Apple with its privacy labels — every section below was written against
+ * the code on 2026-10-21 (what is sent, where, and what is stored). If a feature starts
+ * sending something new, change this page and both store forms together.
+ */
 export default function PrivacyPolicy() {
   useEffect(() => { document.title = 'Privacy Policy — Aradhana Kit' }, [])
 
@@ -11,121 +17,89 @@ export default function PrivacyPolicy() {
       <div className="page-wrap">
         <div className="page-eyebrow"><i className="fa-solid fa-shield-halved"></i> Legal</div>
         <h1 className="page-title">Privacy Policy</h1>
-        <p className="page-meta">Last updated: June 7, 2026 &nbsp;·&nbsp; Effective: June 7, 2026</p>
+        <p className="page-meta">Last updated: October 21, 2026 &nbsp;·&nbsp; Effective: October 21, 2026</p>
 
         <div className="prose">
 
           <div className="highlight-box">
-            <strong>Our commitment:</strong> Aradhana Kit does not sell your data, show ads, or share your personal information with third parties for marketing purposes. We collect only what is necessary to provide you with a spiritual experience.
+            <strong>In short:</strong> Aradhana Kit is free, shows no ads, and does not sell your data or share it for marketing. Most of the app — every text, the Panchang, the festival calendar — works on your phone without an account. If you create one, we store only what is needed to keep your practice in sync, and you can delete it at any time.
           </div>
 
-          <h2><i className="fa-solid fa-info-circle"></i>1. Introduction</h2>
-          <p>Aradhana Kit ("we", "us", "our") is a free Hindu devotional application developed by Justanothersupremesoul. This Privacy Policy explains how we collect, use, and protect your information when you use our mobile application ("App") and website.</p>
-          <p>By using the App, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use the App.</p>
+          <h2><i className="fa-solid fa-info-circle"></i>1. Who we are</h2>
+          <p>Aradhana Kit ("we", "us") is a Hindu devotional app for Android and iOS, developed by Justanothersupremesoul in India. This policy explains what information the app and our website handle, why, and the choices you have.</p>
 
-          <h2><i className="fa-solid fa-database"></i>2. Information We Collect</h2>
-          <p><strong>Account Information</strong></p>
+          <h2><i className="fa-solid fa-user"></i>2. Using the app without an account</h2>
+          <p>You can use Aradhana Kit as a guest. The devotional library is built into the app, and the Panchang, Muhurat and festival calendar are calculated on your phone. As a guest, your chanting counts, saved texts and settings stay on your device and are not sent to our servers.</p>
+
+          <h2><i className="fa-solid fa-database"></i>3. Information we store if you create an account</h2>
           <ul>
-            <li><strong>Phone number</strong> — used for OTP-based authentication. We do not store OTPs after verification.</li>
-            <li><strong>Name</strong> — optional, provided by you during registration or in profile settings.</li>
-            <li><strong>Language preference</strong> — your chosen app language (e.g., Hindi, Bengali).</li>
-            <li><strong>Theme preference</strong> — light, dark, or system.</li>
+            <li><strong>Email address</strong> — to sign you in with a one-time code. If you use <strong>Sign in with Apple</strong>, we store the identifier Apple gives us and the email Apple shares (which may be a private relay address).</li>
+            <li><strong>Name</strong> — optional, if you enter one.</li>
+            <li><strong>Your practice</strong> — chanting history (mantra name, count, date), streaks, your Sankalpa and its progress, saved texts, and reading progress.</li>
+            <li><strong>Preferences</strong> — language, theme, and reminder and festival-alert settings.</li>
+            <li><strong>Notification token</strong> — only if you turn on daily reminders, so we can send them.</li>
+          </ul>
+          <p>One-time sign-in codes are kept in memory for five minutes and are never written to our database.</p>
+
+          <h2><i className="fa-solid fa-location-dot"></i>4. Location</h2>
+          <p>With your permission, the app uses your location <strong>on your phone</strong> to calculate the Panchang, sunrise and Muhurat for where you are, and to show nearby temples on the map. We do not send your location to our servers or store it. If you deny permission, the app uses New Delhi.</p>
+          <p>To show a place name, your phone's own location service may convert coordinates into a city name.</p>
+
+          <h2><i className="fa-solid fa-paper-plane"></i>5. Information sent to other services when you use a feature</h2>
+          <p>Some features need an outside service. Each receives only what that feature needs, only when you use it, and we do not store these requests.</p>
+          <ul>
+            <li><strong>Kundli, Horoscope and Kundli Matching</strong> — the birth date, time and place you enter are sent to the <strong>VedAstro</strong> public API to calculate the chart.</li>
+            <li><strong>Birth-place search</strong> — the place name you type is sent to <strong>Photon</strong> (komoot) to suggest matching places.</li>
+            <li><strong>AI Spiritual Guide and mood-based verses</strong> — the messages you send are processed by our AI provider (<strong>Ollama</strong>) to generate a reply. Your conversations are saved only on your phone; we do not store them on our servers.</li>
+            <li><strong>Voice search</strong> — when you tap the microphone, your phone's speech-recognition service (Google on Android, Apple on iOS) turns your speech into text. The app uses only the text, to find what you asked for, and does not record or keep audio.</li>
+            <li><strong>Sign-in emails</strong> — your email address is given to <strong>Resend</strong>, which delivers the one-time code.</li>
+            <li><strong>Reminders</strong> — if enabled, your notification token is used with <strong>Expo</strong>'s push service to deliver them.</li>
           </ul>
 
-          <p><strong>Usage Data</strong></p>
+          <h2><i className="fa-solid fa-gears"></i>6. How we use information</h2>
           <ul>
-            <li><strong>Chanting history</strong> — mantra name, count, and date of each chanting session.</li>
-            <li><strong>Streak and Mala counts</strong> — derived from your chanting history.</li>
-            <li><strong>Sankalpa details</strong> — vow intention, duration, and daily target you set.</li>
+            <li>To sign you in and keep your account and practice in sync across devices</li>
+            <li>To show your chanting history, streaks and Sankalpa progress</li>
+            <li>To send reminders and festival alerts you have turned on</li>
+            <li>To run the features you use, as described above</li>
           </ul>
+          <p>We do <strong>not</strong> use your information for advertising or profiling, and we do not sell it. The app contains no ads and no third-party analytics or tracking.</p>
 
-          <p><strong>Device &amp; Notification Data</strong></p>
+          <h2><i className="fa-solid fa-server"></i>7. Storage and security</h2>
+          <p>Account data is stored in <strong>MongoDB Atlas</strong> and served by our API hosted on <strong>Render</strong>. All connections use encryption in transit (HTTPS/TLS). Your sign-in token is kept in your phone's secure storage (iOS Keychain / Android Keystore) and expires after seven days.</p>
+          <p>Devotional images are loaded from our storage on <strong>Supabase</strong> and from <strong>Unsplash</strong>. To tell whether you are online, the app occasionally contacts a Google or Apple connectivity-check address, which sends no personal information. App updates are delivered through <strong>Expo</strong>, which receives basic technical details (app version, platform) to send the right update.</p>
+
+          <h2><i className="fa-solid fa-trash-can"></i>8. Deleting your account</h2>
+          <p>You can delete your account and all the data stored with it at any time:</p>
           <ul>
-            <li><strong>Expo Push Token</strong> — only if you enable daily reminders. Used solely to send you local chanting reminders. Never shared with advertisers.</li>
+            <li><strong>In the app:</strong> Profile → scroll to the bottom → Delete Account.</li>
+            <li><strong>On the web:</strong> <Link to="/delete-account">aradhana-kit.vercel.app/delete-account</Link> — no app needed.</li>
           </ul>
+          <p>Deletion is immediate and permanent. Data that lives only on your phone (AI chats, guest data, on-device settings) is removed when you uninstall the app or clear its data.</p>
+          <p>We keep account data only while your account exists.</p>
 
-          <p><strong>Location Data</strong></p>
-          <ul>
-            <li><strong>Approximate location (lat/lng)</strong> — used only when you view the Panchang or Muhurat screens, to provide location-accurate astronomical data. Location is sent directly to the VedAstro API and is not stored on our servers.</li>
-            <li>You can deny location permission; the app will fall back to New Delhi coordinates.</li>
-          </ul>
+          <h2><i className="fa-solid fa-child"></i>9. Children</h2>
+          <p>Aradhana Kit is not directed to children under 13, and we do not knowingly collect personal information from them. If you believe a child under 13 has created an account, contact us and we will delete it.</p>
 
-          <p><strong>Kundli / Birth Data</strong></p>
-          <ul>
-            <li>Birth date, time, and place entered for Kundli or Guna Milan are sent directly to the VedAstro public API. We do not store this information on our servers.</li>
-          </ul>
+          <h2><i className="fa-solid fa-user-check"></i>10. Your rights</h2>
+          <p>Depending on where you live, you may have the right to access, correct, delete or receive a copy of your personal data, or to object to how it is used. You can correct your name and preferences in the app and delete your account as described above; for anything else, email <a href="mailto:admin@canvadb.com">admin@canvadb.com</a>. We reply within 30 days.</p>
 
-          <p><strong>AI Chat Data</strong></p>
-          <ul>
-            <li>Messages you send to the AI Spiritual Guide are processed by our configured AI provider (Ollama). We do not store individual chat messages on our servers beyond the duration of your session.</li>
-          </ul>
+          <h2><i className="fa-solid fa-globe"></i>11. International users</h2>
+          <p>Aradhana Kit is operated from India, and the services above may process data in other countries. By using the app, you consent to this transfer.</p>
 
-          <p><strong>Guest Mode</strong></p>
-          <ul>
-            <li>If you use the app without an account, chanting data is stored only on your device via AsyncStorage. No data is transmitted to our servers.</li>
-          </ul>
+          <h2><i className="fa-solid fa-pen-to-square"></i>12. Changes to this policy</h2>
+          <p>We will update this page when the app's handling of data changes, and change the date at the top. For significant changes we will also tell you in the app.</p>
 
-          <h2><i className="fa-solid fa-gears"></i>3. How We Use Your Information</h2>
-          <ul>
-            <li>To authenticate you and maintain your account</li>
-            <li>To store and display your chanting history, streaks, and Sankalpa progress</li>
-            <li>To send daily prayer reminders (only if you opt in)</li>
-            <li>To provide location-based Panchang and Muhurat data</li>
-            <li>To serve translated temple and sacred content in your preferred language</li>
-            <li>To improve the App based on aggregate, anonymised usage patterns</li>
-          </ul>
-          <p>We do <strong>not</strong> use your data for advertising, profiling, or sell it to any third party.</p>
-
-          <h2><i className="fa-solid fa-server"></i>4. Data Storage &amp; Security</h2>
-          <p>Your account data is stored on <strong>MongoDB Atlas</strong> (cloud database). We use industry-standard security practices including encrypted connections (TLS) and JWT-based authentication with 7-day token expiry.</p>
-          <p>Your JWT token is stored securely in <strong>Expo SecureStore</strong> (iOS Keychain / Android Keystore) on your device — not in plain AsyncStorage.</p>
-          <p>We retain your account data as long as your account is active. You may request deletion at any time (see Section 9).</p>
-
-          <h2><i className="fa-solid fa-share-nodes"></i>5. Third-Party Services</h2>
-          <p>The App uses the following third-party services. Each has its own privacy policy:</p>
-          <ul>
-            <li><strong>MongoDB Atlas</strong> (database hosting) — <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank" rel="noreferrer">mongodb.com/legal/privacy-policy</a></li>
-            <li><strong>Expo</strong> (app framework &amp; push notifications) — <a href="https://expo.dev/privacy" target="_blank" rel="noreferrer">expo.dev/privacy</a></li>
-            <li><strong>VedAstro</strong> (Panchang, Kundli) — free public API; no account required. Location and birth data sent to compute astronomical results.</li>
-            <li><strong>Ollama / AI provider</strong> (AI spiritual guide) — AI chat messages are processed to generate responses.</li>
-            <li><strong>Google Fonts &amp; Font Awesome</strong> (website only) — fonts delivered via CDN.</li>
-          </ul>
-
-          <h2><i className="fa-solid fa-child"></i>6. Children's Privacy</h2>
-          <p>The App is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If we discover that a child under 13 has provided personal information, we will delete it immediately. Parents or guardians who believe their child has provided us with personal information may contact us at <a href="mailto:admin@canvadb.com">admin@canvadb.com</a>.</p>
-
-          <h2><i className="fa-solid fa-bell"></i>7. Push Notifications</h2>
-          <p>We use Expo's notification service to send daily reminders. Notifications are only sent if you explicitly enable them in the App. You can disable them at any time in the App's Profile settings or in your device's system notification settings.</p>
-
-          <h2><i className="fa-solid fa-user-check"></i>8. Your Rights</h2>
-          <p>Depending on your jurisdiction, you may have the following rights:</p>
-          <ul>
-            <li><strong>Access</strong> — request a copy of the personal data we hold about you</li>
-            <li><strong>Correction</strong> — update inaccurate or incomplete data via the Profile screen</li>
-            <li><strong>Deletion</strong> — request that we delete your account and all associated data</li>
-            <li><strong>Portability</strong> — request your data in a machine-readable format</li>
-            <li><strong>Objection</strong> — object to certain processing activities</li>
-          </ul>
-          <p>To exercise any of these rights, email us at <a href="mailto:admin@canvadb.com">admin@canvadb.com</a>. We will respond within 30 days.</p>
-
-          <h2><i className="fa-solid fa-globe"></i>9. International Users</h2>
-          <p>Aradhana Kit is developed and operated from India. If you access the App from outside India, your information may be transferred to and processed in India. By using the App, you consent to this transfer.</p>
-
-          <h2><i className="fa-solid fa-pen-to-square"></i>10. Changes to This Policy</h2>
-          <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by updating the "Last updated" date at the top of this page and, where appropriate, through an in-app notice. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
-
-          <h2><i className="fa-solid fa-envelope"></i>11. Contact Us</h2>
-          <p>If you have any questions about this Privacy Policy, please contact us:</p>
+          <h2><i className="fa-solid fa-envelope"></i>13. Contact</h2>
           <ul>
             <li><strong>Email:</strong> <a href="mailto:admin@canvadb.com">admin@canvadb.com</a></li>
-            <li><strong>App:</strong> Profile → Give Feedback</li>
-            <li><strong>Website:</strong> <Link to="/support">divinelearning.app/support</Link></li>
+            <li><strong>Website:</strong> <Link to="/support">aradhana-kit.vercel.app/support</Link></li>
           </ul>
         </div>
       </div>
 
       <footer className="legal-footer">
-        <p>© 2026 Aradhana Kit &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/terms">Terms &amp; Conditions</Link> &nbsp;·&nbsp; <Link to="/support">Support</Link></p>
+        <p>© 2026 Aradhana Kit &nbsp;·&nbsp; <Link to="/">Home</Link> &nbsp;·&nbsp; <Link to="/terms">Terms &amp; Conditions</Link> &nbsp;·&nbsp; <Link to="/delete-account">Delete account</Link> &nbsp;·&nbsp; <Link to="/support">Support</Link></p>
       </footer>
     </>
   )
