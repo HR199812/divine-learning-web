@@ -1,69 +1,36 @@
-import { useEffect } from 'react'
-import anime from 'animejs'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import HeroSection from '../components/HeroSection'
-import StatsStrip from '../components/StatsStrip'
-import GallerySection from '../components/GallerySection'
-import FeaturesSection from '../components/FeaturesSection'
-import JyotishSection from '../components/JyotishSection'
+import '../styles/dawn.css'
+import DawnNav from '../dawn/DawnNav'
+import DawnHero from '../dawn/DawnHero'
+import DawnWords from '../dawn/DawnWords'
+import DawnReel from '../dawn/DawnReel'
+import DawnSun from '../dawn/DawnSun'
+import DawnBento from '../dawn/DawnBento'
+import DawnClose from '../dawn/DawnClose'
 import PanchangSection from '../components/PanchangSection'
-import TemplesSection from '../components/TemplesSection'
-import LanguagesSection from '../components/LanguagesSection'
-import ToolsSection from '../components/ToolsSection'
-import DownloadSection from '../components/DownloadSection'
 
-function useScrollReveal() {
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return
-        const el = entry.target
-        // `closest` is guarded: a `.bento-item` outside a `.bento` used to throw
-        // here, and a throw inside an IntersectionObserver callback aborts the
-        // whole batch — every later element stayed at its CSS `opacity: 0`, so
-        // one stray class turned the page below it black.
-        const bento = el.classList.contains('bento-item') ? el.closest('.bento') : null
-        if (bento) {
-          const siblings = [...bento.querySelectorAll('.bento-item')]
-          anime({ targets: siblings, opacity: [0, 1], translateY: [30, 0], delay: anime.stagger(70), duration: 800, easing: 'easeOutCubic' })
-          siblings.forEach(s => observer.unobserve(s))
-        } else if (el.classList.contains('tool-item')) {
-          const siblings = [...el.closest('.tools-bento').querySelectorAll('.tool-item')]
-          anime({ targets: siblings, opacity: [0, 1], translateY: [20, 0], delay: anime.stagger(60), duration: 700, easing: 'easeOutCubic' })
-          siblings.forEach(s => observer.unobserve(s))
-        } else {
-          anime({ targets: el, opacity: [0, 1], translateY: [20, 0], duration: 700, easing: 'easeOutCubic' })
-          observer.unobserve(el)
-        }
-      })
-    }, { threshold: 0.1 })
-
-    document.querySelectorAll(
-      '.bento-item, .jyotish-card, .tool-item, .section-eyebrow, .section-title, .section-sub, .temples-big-num, .lang-layout'
-    ).forEach(el => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
-}
-
+/**
+ * The homepage is one morning: it opens at night, the sun rises over the app's story,
+ * and it closes back in the dark. Each section reads its own scroll progress — see
+ * src/dawn/useScrollProgress.js. `data-tone` on a section tells the floating nav
+ * whether it is over night or day.
+ *
+ * The live Panchang calendar (computed in the browser, as the app does on the phone)
+ * follows the sun-arc moment, where its claim is made.
+ */
 export default function Home() {
-  useScrollReveal()
-
   return (
-    <>
-      <Navbar />
-      <HeroSection />
-      <StatsStrip />
-      <GallerySection />
-      <FeaturesSection />
-      <JyotishSection />
-      <PanchangSection />
-      <TemplesSection />
-      <LanguagesSection />
-      <ToolsSection />
-      <DownloadSection />
-      <Footer />
-    </>
+    <main className="dawn">
+      <DawnNav />
+      <DawnHero />
+      <DawnWords />
+      <div className="dn-dawnband" aria-hidden="true" />
+      <DawnReel />
+      <DawnSun />
+      <div className="dn-live" data-tone="light">
+        <PanchangSection />
+      </div>
+      <DawnBento />
+      <DawnClose />
+    </main>
   )
 }

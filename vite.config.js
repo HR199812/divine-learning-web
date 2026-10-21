@@ -17,14 +17,4 @@ export default defineConfig({
       'astronomy-engine': require.resolve('astronomy-engine'),
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          three: ['three'],
-          anime: ['animejs'],
-        },
-      },
-    },
-  },
 })
