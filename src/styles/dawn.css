@@ -224,8 +224,15 @@
   .dn-reel { height: calc(7 * 480px + 100svh); }
   .dn-reel-pin { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; gap: 18px; padding: 84px 20px 24px; }
   .dn-reel-index { display: none; }
-  .dn-reel-device { gap: 14px; --pw: min(230px, calc((var(--pin) - 430px) * 0.4622 + 18px)); --pp: 9px; }
-  .dn-reel-copy { height: 250px; }
+  /* On a phone the reel shows the TOP of the handset, fading into the page: the top of each
+     screen is where its meaning is, and a whole 440×952 phone plus copy cannot fit a ~700pt
+     Safari viewport without shrinking to ~150pt. Width comes from the real pinned height. */
+  .dn-reel-device { gap: 0; --pw: min(76vw, 300px, calc((var(--pin) - 300px) * 0.733 + 18px)); --pp: 9px; }
+  .dn-reel .dn-phone { -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 100%); mask-image: linear-gradient(180deg, #000 80%, transparent 100%); border-radius: calc(var(--pw) * 0.16) calc(var(--pw) * 0.16) 0 0; padding-bottom: 0; }
+  .dn-reel-window { aspect-ratio: 440 / 600; border-radius: calc(var(--pw) * 0.13) calc(var(--pw) * 0.13) 0 0; }
+  .dn-reel-progress { display: none; }
+  .dn-reel-copy { height: 190px; }
+  .dn-reel-steps { display: none; }
   .dn-reel-chapter { justify-content: flex-start; gap: 10px; text-align: center; align-items: center; }
   .dn-reel-kicker { display: block; }
   .dn-reel-chapter h2 { font-size: 32px; }
