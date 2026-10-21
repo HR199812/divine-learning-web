@@ -16,7 +16,9 @@ export default function DawnBento() {
               <h3>3,300+ texts</h3>
               <p>Chalisas, aartis, bhajans, mantras and kathas — inside the app, ready offline.</p>
             </div>
-            <img className="dn-card-shot dn-card-shot--library" src="/images/library.png" alt="The Library" loading="lazy" width="440" height="952" />
+            <div className="dn-card-phone dn-card-phone--library">
+              <img src="/images/library.png" alt="The Library, with its collections" loading="lazy" width="440" height="952" />
+            </div>
           </article>
           <article className="dn-card dn-card--sand" style={{ '--i': 1 }}>
             <p className="dn-card-scripts" lang="hi">हिन्दी বাংলা<br />मराठी தமிழ்</p>
@@ -35,7 +37,9 @@ export default function DawnBento() {
               <h3>Every sacred door.</h3>
               <p>Jyotirlingas, Char Dham, Shakti Peethas — with each temple's story and directions.</p>
             </div>
-            <img className="dn-card-shot dn-card-shot--map" src="/images/temple-map.png" alt="The temple map" loading="lazy" width="440" height="952" />
+            <div className="dn-card-phone dn-card-phone--map">
+              <img src="/images/temple-map.png" alt="The temple map" loading="lazy" width="440" height="952" />
+            </div>
           </article>
           <article className="dn-card dn-card--warm" style={{ '--i': 5 }}>
             <h3>Never miss a vrat.</h3>

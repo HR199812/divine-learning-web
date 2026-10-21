@@ -162,13 +162,23 @@
 .dn-card--warm { background: #F3E3CC; border-color: #F3E3CC; }
 .dn-card--ink { background: var(--ink); border-color: var(--ink); color: var(--ink-night); }
 .dn-card--ink p { color: #E3D5C0; }
-.dn-card-copy { display: flex; flex-direction: column; gap: 8px; max-width: 280px; position: relative; z-index: 1; }
+.dn-card-copy { display: flex; flex-direction: column; gap: 8px; max-width: 250px; position: relative; z-index: 1; }
 .dn-card-copy--narrow { max-width: 250px; }
 .dn-card-copy h3 { font-size: 40px; line-height: 1; }
 .dn-card-scripts { font-family: var(--deva); font-size: 44px; line-height: 1.15; color: var(--accent) !important; }
-.dn-card-shot { position: absolute; border-radius: 30px; box-shadow: 0 30px 60px rgba(42,26,14,0.22); }
-.dn-card-shot--library { right: -10px; bottom: -120px; width: 250px; transform: rotate(-6deg); }
-.dn-card-shot--map { right: 24px; top: 28px; width: 220px; transform: rotate(5deg); }
+/* A screenshot in a card is always a framed phone, its top (status bar, title) in view,
+   cropped by the card's lower edge and faded there — never a bare, rotated crop. */
+.dn-card-phone {
+  position: absolute; box-sizing: border-box; padding: 8px; background: var(--night-2);
+  border-radius: 38px; box-shadow: 0 30px 60px rgba(42,26,14,0.20), 0 6px 16px rgba(42,26,14,0.10);
+}
+.dn-card-phone img { display: block; width: 100%; height: auto; aspect-ratio: 440 / 952; border-radius: 30px; }
+.dn-card-phone--library { width: 250px; right: 28px; top: 44px; transform: rotate(-3deg); }
+.dn-card-phone--map { width: 200px; right: 32px; top: 30px; transform: rotate(3deg); }
+.dn-card--wide::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0), #FFFFFF 85%);
+}
 
 /* ── 6 · Close ───────────────────────────────────────────────────────────────── */
 .dn-close { background: linear-gradient(180deg, #FAF6F0 0%, #2A1A0E 22%, #100A06 60%); padding: 220px clamp(20px, 5vw, 64px) 40px; text-align: center; color: var(--ink-night); }
@@ -195,6 +205,10 @@
 @media (max-width: 1100px) {
   .dn-reel-pin { grid-template-columns: 200px minmax(0, 1fr) 300px; gap: 32px; padding: 96px 32px 40px; }
   .dn-reel-chapter h2 { font-size: 44px; }
+}
+
+/* Two columns before the wide cards get too narrow for copy and phone side by side. */
+@media (max-width: 1320px) {
   .dn-bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -233,8 +247,8 @@
   .dn-card--wide, .dn-card--tall { grid-column: auto; grid-row: auto; }
   .dn-card--tall { min-height: 460px; }
   .dn-card--wide:not(.dn-card--tall) { min-height: 340px; }
-  .dn-card-shot--library { width: 190px; top: 190px; bottom: auto; right: 12px; }
-  .dn-card-shot--map { width: 160px; top: auto; bottom: -60px; right: 16px; }
+  .dn-card-phone--library { width: 200px; top: 180px; right: 50%; margin-right: -100px; transform: none; }
+  .dn-card-phone--map { width: 170px; top: 170px; right: 50%; margin-right: -85px; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
