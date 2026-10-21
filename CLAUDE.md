@@ -7,6 +7,9 @@
 
 # Aradhana Kit — Web (GitHub Pages)
 
+> One of three repos in `aradhana-kit/` — see `../CLAUDE.md` for how app, backend and web
+> connect, the content pipeline, and the release routine.
+
 ## Project Overview
 Static landing page + legal docs for the **Aradhana Kit** app, hosted on GitHub Pages at `https://hr199812.github.io/divine-learning-web/`. Built as a portfolio project and App Store submission requirement.
 
@@ -149,8 +152,9 @@ git push
 Changes go live in ~1–2 minutes after push.
 
 ## Connected Projects
-- **App** (`../divine-learning/`) — React Native / Expo app this site promotes
-- **Backend** (`../backend/`) — NestJS API serving the app
+The three repos sit side by side in `aradhana-kit/`; its own `CLAUDE.md` maps how they fit.
+- **App** (`../divine-knowledge-react-native/`) — React Native / Expo app this site promotes
+- **Backend** (`../divine-knowledge-backend/`) — NestJS API serving the app
 - **App bundle ID**: `com.justanothersupremesoul.divinelearning`
 - **GitHub**: `https://github.com/HR199812/divine-learning-web`
 
@@ -263,3 +267,54 @@ columns 2 and 4 dropped 64px; below 900px it becomes one snap-scrolling row. It 
 all 13 screens including Sun & Muhurat, Panchang Calendar and Festivals (440px wide PNGs
 in `public/images/`). The old `.screen-grid` / `.screen-card` / `.phone-frame` rules are
 gone — cards around screenshots left most of every tile empty and clipped the labels.
+
+
+# How the app uses this site (2026-10-15)
+
+## The legal pages open inside the app, in a sheet
+Profile → Legal opens `aradhana-kit.vercel.app/privacy-policy` and `/terms` in the app's
+`WebViewModal`. On iOS that is the native pageSheet; on Android a rounded sheet drawn by the
+app, the page laid out **below** the app's floating header (Android has no WebView
+`contentInset`) and above the navigation bar. So:
+- The page's own top bar is visible under the app's title in the sheet — keep it short; don't
+  add a sticky header taller than ~60px or the first heading starts low.
+- Keep the footer (© · Home · Terms · Support) as the last thing on the page — it is what a
+  reader on a 3-button Android phone scrolls to, and the app now clears the nav bar for it.
+- Renaming or moving either path breaks the app's Profile rows: the URLs are in
+  `app/(tabs)/profile.tsx`.
+
+## Pending: share index after the 2026-10-15 content change
+Bajrang Baan and Sankatmochan Hanuman Ashtak were added to `chalisas` (backend
+`scripts/seed-hanuman-stutis.mjs`) and re-exported into the app, but
+`npm run build:share-index` has **not** been re-run, so `api/_share-index.json` lacks their
+two titles and a shared link to either previews without one. Re-run it, commit, deploy.
+The full content pipeline is in the backend `CLAUDE.md` ("How a content change reaches
+devotees").
+
+
+# The homepage is "Dawn" (2026-10-21)
+**This supersedes the gallery, hero and bento notes above** — those sections, their
+components and the three.js / anime.js dependencies were removed in `635d116`.
+
+The homepage is one morning told on scroll: night hero → a line lit word by word → a
+night-to-dawn band → the reel (one pinned phone, seven chapters) → the sun walking the day's
+arc → the live Panchang calendar → bento → a night close. Components: `src/dawn/`, styles:
+`src/styles/dawn.css`, composed in `src/pages/Home.jsx`.
+
+- **`useScrollProgress(ref, onFrame, {mode})`** measures one section per frame. `pin`: the
+  section's first child is `position: sticky`; progress runs while it is held. `enter`:
+  as the section rises into view. Continuous motion writes **CSS variables** (`--h`, `--p`,
+  `--b`) — no React render per frame; only discrete steps (word, chapter, sun mark) use
+  state. With `prefers-reduced-motion` components show their finished state.
+- **The reel's phone, chapter list and copy share ONE index.** They once rounded the same
+  progress differently and the phone ran a chapter ahead of the text.
+- **Phone frames are `box-sizing: border-box`.** Width-then-padding made one bezel side 3×
+  the other. A screenshot in a card is always a framed phone (`.dn-card-phone`), its top in
+  view, never a bare rotated crop.
+- `data-tone="dark|light"` on each section flips the floating nav's glass.
+- Breakpoints: bento two columns at ≤1320px, reel compact ≤1100px, phone layout ≤900px.
+  Check 390, 1180, 1280, 1366 and 1440 after layout changes — the 1180–1366 range is where
+  the wide bento cards collide.
+- **Google Play button** reads "Coming soon" until `PLAY_LIVE = true` in
+  `src/dawn/DawnClose.jsx` (set it when the listing is public).
+- Screenshots come from `public/images/*.png` (440×952, early October) — replace in place.
